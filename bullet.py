@@ -11,13 +11,17 @@ class bullet():
         self.vy = vy
         self.color = color
         self.count = 0
-        self.delete_ok = False
+        self.is_active = False
 
     def update(self):
-        self.count += 1
-        self.y += 1
-        if self.x < 0 or self.x > pyxel.width or self.y < 0 or self.y > pyxel.height:
-            self.delete_ok = True
+        if self.is_active:
+            self.count += 1
+            self.y += 0.8
+
+        if self.x < -10 or self.x > pyxel.width + 10 or self.y < 0 - 10 or self.y > pyxel.height + 10:
+            self.is_active = False
+            self.count = 0
 
     def draw(self):
-        pyxel.circ(self.x, self.y, self.radius, self.color)
+        if self.is_active:
+            pyxel.circ(self.x, self.y, self.radius, self.color)
