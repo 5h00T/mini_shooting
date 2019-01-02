@@ -13,8 +13,8 @@ class App:
         self.x = 2
         self.frame30_start = time.time()
         self.frame30 = 0
-        self.player = player.Player(100, 200, 10, 10, 2, 3)
-        self.enemy = enemy1.Enemy1(pyxel.width / 2 - 7 , 10, 15, 15, 8)
+        self.player = player.Player(pyxel.width / 2, 200, 10, 10, 2, 2)
+        self.enemy = enemy1.Enemy1(pyxel.width / 2, 10, 16, 16, 8)
         pyxel.run(self.update, self.draw)
 
     def update(self):

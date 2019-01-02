@@ -2,6 +2,7 @@ import bullet_pool
 import bullet
 import pyxel
 import enemy
+import math
 
 
 class Enemy1(enemy.Enemy):
@@ -10,10 +11,8 @@ class Enemy1(enemy.Enemy):
 
     def update(self):
         super().update()
-        if self.count % 30 == 0:
-            b = self.bullet_pool.get_bullet(2, self.center_x, self.center_y, 0, 0, 0)
-            if b:
-                self.bullets.append(b)
+        if self.count % 1 == 0:
+            self.pattern2(3)
 
     def draw(self):
         super().draw()

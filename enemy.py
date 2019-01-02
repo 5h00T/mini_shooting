@@ -1,7 +1,9 @@
 import bullet_pool
+import player
 import bullet
 import pyxel
 import random
+import math
 
 class Enemy():
     def __init__(self, x, y, width, height, color):
@@ -11,8 +13,9 @@ class Enemy():
         self.height = height
         self.color = color
         self.count = 0
-        self.center_x = self.x + self.width / 2
-        self.center_y = self.y + self.height / 2
+        self.view_start_x = self.x - self.width / 2
+        self.view_start_y = self.y - self.height / 2
+        print(self.x, self.y, self.view_start_x, self.view_start_y)
         self.bullets = []
         self.bullet_pool = bullet_pool.BulletPool(100)
 
@@ -25,6 +28,30 @@ class Enemy():
                 self.bullets.remove(b)
 
     def draw(self):
-        pyxel.rect(self.x, self.y, self.x + self.width, self.y + self.height, self.color)
+        pyxel.rect(self.view_start_x, self.view_start_y, self.view_start_x + self.width,
+                   self.view_start_y + self.height, self.color)
         for b in self.bullets:
             b.draw()
+
+    def pattern1(self, angle, speed):
+        """
+        angle度の方向に一発発射する
+        :param angle: 角度
+        :return:
+        """
+        b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(math.radians(angle)), math.sin(math.radians(angle)), speed, 0)
+        if b:
+            self.bullets.append(b)
+
+    def pattern2(self, speed):
+        """
+        自機狙いを一発発射する
+        :return:
+        """
+        player_x, player_y = player.Player.getPosition()
+        print(player_x, player_y)
+        angle_to_player = math.atan2(player_y - self.y, player_x - self.x)
+        b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(angle_to_player),
+                                        math.sin(angle_to_player),speed, 0)
+        if b:
+            self.bullets.append(b)
