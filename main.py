@@ -1,6 +1,6 @@
 import pyxel
 import bullet
-import enemy
+import enemy1
 import time
 import random
 import bullet_pool
@@ -9,39 +9,25 @@ import bullet_pool
 class App:
     def __init__(self):
         pyxel.init(width=189, height=252, caption="shooting", fps=60)
-        self.bullets = []
-        self.bullet_pool = bullet_pool.BulletPool(1000)
         self.x = 2
         self.frame30_start = time.time()
         self.frame30 = 0
-        self.enemy = enemy.Enemy(10, 10, 15, 15, 8)
+        self.enemy = enemy1.Enemy1(pyxel.width / 2 - 7 , 10, 15, 15, 8)
         pyxel.run(self.update, self.draw)
 
     def update(self):
         self.enemy.update()
-        for i in range(10):
-            bullet = self.bullet_pool.get_bullet(1, random.randint(0, 240), 0, 0, 0, 0)
-            if bullet:
-                self.bullets.append(bullet)
-
-        for bullet in self.bullets:
-            bullet.update()
-            if not bullet.is_active:
-                self.bullets.remove(bullet)
 
         if 0 == pyxel.frame_count % 60:
             self.frame30 = (time.time() - self.frame30_start) * 60
             self.frame30_start = time.time()
 
-        print(len(self.bullets))
 
     def draw(self):
         pyxel.cls(7)
         self.enemy.draw()
         pyxel.text(100, 220, str(self.frame30), 3)
         pyxel.text(100, 240, str(pyxel.frame_count), 3)
-        for b in self.bullets:
-            b.draw()
 
 
 App()
