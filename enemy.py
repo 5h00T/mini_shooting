@@ -17,7 +17,7 @@ class Enemy():
         self.view_start_y = self.y - self.height / 2
         print(self.x, self.y, self.view_start_x, self.view_start_y)
         self.bullets = []
-        self.bullet_pool = bullet_pool.BulletPool(100)
+        self.bullet_pool = bullet_pool.EnemyBulletPool(10)
 
     def update(self):
         self.count += 1
@@ -49,7 +49,6 @@ class Enemy():
         :return:
         """
         player_x, player_y = player.Player.getPosition()
-        print(player_x, player_y)
         angle_to_player = math.atan2(player_y - self.y, player_x - self.x)
         b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(angle_to_player),
                                         math.sin(angle_to_player),speed, 0)
