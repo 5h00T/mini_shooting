@@ -1,5 +1,5 @@
 import pyxel
-import game_manager
+import scene_manager
 import time
 import menu
 import math
@@ -9,7 +9,7 @@ class App:
         pyxel.init(width=189, height=252, caption="shooting", fps=60)
         self.frame30_start = time.time()
         self.frame30 = 0
-        self.scene_manager = game_manager.SceneManager()
+        self.scene_manager = scene_manager.SceneManager()
         pyxel.run(self.update, self.draw)
 
     def update(self):

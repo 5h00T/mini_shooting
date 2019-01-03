@@ -2,9 +2,10 @@ import enemy1
 import pyxel
 import player
 
-class Mission1():
+class Mission2():
 
     def __init__(self):
+        print("Mission1")
         self.player = player.Player(pyxel.width / 2, 200, 10, 10, 2, 2)
         self.enemy = enemy1.Enemy1(pyxel.width / 2, 10, 16, 16, 8)
 

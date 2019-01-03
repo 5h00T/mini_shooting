@@ -1,5 +1,5 @@
 import pyxel
-import mission1
+
 
 class MissionSelect():
 
@@ -17,7 +17,7 @@ class MissionSelect():
 
         if pyxel.btnp(pyxel.KEY_Z, 10, 10):
             if self.cursor == 0:
-                return 1
+                return (5, 1)
             elif self.cursor == 1:
                 return 2
             elif self.cursor == 2:

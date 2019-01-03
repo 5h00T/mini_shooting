@@ -1,9 +1,6 @@
 import pyxel
 import enum
 
-class MenuItem(enum.Enum):
-    MISSION_SELLECT = 0
-    EXIT = 1
 
 class Menu():
 
