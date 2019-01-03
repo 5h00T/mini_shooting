@@ -8,6 +8,7 @@ class Mission2():
         print("Mission1")
         self.player = player.Player(pyxel.width / 2, 200, 10, 10, 2, 2)
         self.enemy = enemy1.Enemy1(pyxel.width / 2, 10, 16, 16, 8)
+        self.enemy = enemy1.Enemy1(pyxel.width / 2, 90, 16, 16, 8)
 
     def update(self):
         self.player.update()
