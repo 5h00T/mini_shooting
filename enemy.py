@@ -1,23 +1,21 @@
 import bullet_pool
 import player
-import bullet
 import pyxel
-import random
 import math
 
 class Enemy():
-    def __init__(self, x, y, width, height, color):
+    def __init__(self, x, y, width, height, hp,color):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
+        self.hp = hp
         self.color = color
         self.count = 0
         self.view_start_x = self.x - self.width / 2
         self.view_start_y = self.y - self.height / 2
-        print(self.x, self.y, self.view_start_x, self.view_start_y)
         self.bullets = []
-        self.bullet_pool = bullet_pool.EnemyBulletPool(10)
+        self.bullet_pool = bullet_pool.EnemyBulletPool(200)
 
     def update(self):
         self.count += 1
@@ -46,6 +44,7 @@ class Enemy():
     def pattern2(self, speed):
         """
         自機狙いを一発発射する
+        :param speed: 弾のスピード
         :return:
         """
         player_x, player_y = player.Player.getPosition()

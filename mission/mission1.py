@@ -1,18 +1,19 @@
 import enemy1
 import pyxel
 import player
+from . import mission
 
-class Mission1():
+class Mission1(mission.Mission):
 
     def __init__(self):
         print("Mission1")
-        self.player = player.Player(pyxel.width / 2, 200, 10, 10, 2, 2)
-        self.enemy = enemy1.Enemy1(pyxel.width / 2, 10, 16, 16, 8)
+        super().__init__()
 
     def update(self):
-        self.player.update()
-        self.enemy.update()
+        super().update()
 
     def draw(self):
-        self.player.draw()
-        self.enemy.draw()
+        super().draw()
+
+    def collision_detection(self):
+        super().collision_detection()

@@ -39,8 +39,6 @@ class Player():
         if pyxel.btnp(pyxel.KEY_Z, 10, 10):
             self.shot(9, -110.0, 5, 1, 1, 1)
 
-        print(len(self.bullets))
-
     def draw(self):
         pyxel.rect(self.view_start_x, self.view_start_y, self.view_start_x + self.width,
                    self.view_start_y + self.height, 9)
