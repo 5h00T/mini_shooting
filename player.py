@@ -79,8 +79,6 @@ class Player():
         self.view_start_x = Player.x - self.width / 2
         self.view_start_y = Player.y - self.height / 2
 
-
-
     def shot(self, way, start_angle, delta_angle, speed, radius, color):
         angle = start_angle
         _bullets = []
