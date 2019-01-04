@@ -36,7 +36,7 @@ class ShotPosition():
         self.x = x
         self.y = y
         self.bullets = []
-        self.bullet_pool = bullet_pool.EnemyBulletPool(1)
+        self.bullet_pool = bullet_pool.EnemyBulletPool(200)
 
     def update(self):
         for b in self.bullets:
@@ -70,3 +70,22 @@ class ShotPosition():
                                         math.sin(angle_to_player),speed, 0)
         if b:
             self.bullets.append(b)
+
+    def pattern3(self, way, angle, speed):
+        """
+        自機狙いwayをangle度ずつ発射する
+        :param way: way数
+        :param angle: 弾の間の角度
+        :param speed: 弾のスピード
+        :return:
+        """
+        player_x, player_y = player.Player.getPosition()
+        angle_to_player = math.atan2(player_y - self.y, player_x - self.x)
+        degree_angle_to_player = math.degrees(angle_to_player)
+        _angle = degree_angle_to_player - way * angle / 2 + angle / 2
+        for i in range(way):
+            b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(math.radians(_angle)),
+                                            math.sin(math.radians(_angle)), speed, 0)
+            if b:
+                self.bullets.append(b)
+            _angle += angle
