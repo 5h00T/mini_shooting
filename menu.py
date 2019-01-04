@@ -18,13 +18,13 @@ class Menu():
 
         if pyxel.btnp(pyxel.KEY_Z, 10, 10):
             if self.cursor == 0:
-                return 2
+                return 2, 0
             elif self.cursor == 1:
-                return 3
+                return 3, 0
             elif self.cursor == 2:
-                return 4
+                return 4, 0
 
-        return 0
+        return 0, 0
 
     def draw(self):
         for i in range(len(self.menu_item)):

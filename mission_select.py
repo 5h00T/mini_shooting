@@ -21,12 +21,12 @@ class MissionSelect():
             elif self.cursor == 1:
                 return 5, 2
             elif self.cursor == 2:
-                return 3
+                return 5, 3
 
         if pyxel.btn(pyxel.KEY_X):
-            return 1
+            return 1, 0
 
-        return 0
+        return 0, 0
 
     def draw(self):
         for i in range(len(self.missions)):

@@ -20,6 +20,9 @@ class Mission():
         else:
             self.after_clear_time += 1
 
+        if self.after_clear_time == 180:
+            self.return_value = 3
+
     def draw(self):
         self.player.draw()
         if not self.is_clear:
@@ -31,7 +34,6 @@ class Mission():
                 pyxel.text(50, pyxel.height / 2, "Clear!", 14)
             else:
                 pyxel.text(50, pyxel.height / 2, "Clear!", 15)
-
 
     def enemy_playerbullet_detection(self):
         x1 = self.enemy.view_start_x
@@ -81,5 +83,3 @@ class Mission():
 
     def mission_clear(self):
         self.is_clear = True
-        print("Clear!!")
-        pass

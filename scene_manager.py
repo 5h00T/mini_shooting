@@ -22,20 +22,21 @@ class SceneManager():
 
     def update(self):
         scene_transition = self.scene.update()
-        if type(scene_transition) == tuple:
-            print("MISSION")
-            self.scene = mission_manager.Mission(missions.missions[str(scene_transition[1])])
-        if scene_transition == Scene.MENU:
+        if scene_transition[0] == Scene.MENU:
             print("1")
             self.scene = menu.Menu()
-        elif scene_transition == Scene.MISSION_SELECT:
+        elif scene_transition[0] == Scene.MISSION_SELECT:
             print("2")
             self.scene = mission_select.MissionSelect()
-        elif scene_transition == Scene.SETTINGS:
+        elif scene_transition[0] == Scene.SETTINGS:
             print("3")
-        elif scene_transition == Scene.EXIT:
+        elif scene_transition[0] == Scene.EXIT:
             print("4")
             pyxel.quit()
+        elif scene_transition[0] == Scene.MISSION:
+            print("MISSION")
+            self.scene = mission_manager.Mission(missions.missions[str(scene_transition[1])])
+
 
     def draw(self):
         self.scene.draw()
