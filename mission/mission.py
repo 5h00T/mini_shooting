@@ -10,19 +10,28 @@ class Mission():
         self.enemy_max_hp = self.enemy.hp
         self.return_value = 0
         self.is_clear = False
+        self.after_clear_time = 0
 
     def update(self):
         self.player.update()
         if not self.is_clear:
             self.enemy.update()
             self.collision_detection()
-
+        else:
+            self.after_clear_time += 1
 
     def draw(self):
         self.player.draw()
         if not self.is_clear:
             self.enemy.draw()
             pyxel.line(10, 10, 170 * self.enemy.hp / self.enemy_max_hp + 10, 10, 13)
+
+        if self.is_clear:
+            if self.after_clear_time % 30 < 15:
+                pyxel.text(50, pyxel.height / 2, "Clear!", 14)
+            else:
+                pyxel.text(50, pyxel.height / 2, "Clear!", 15)
+
 
     def enemy_playerbullet_detection(self):
         x1 = self.enemy.view_start_x
