@@ -8,6 +8,7 @@ class Mission():
         print("Mission")
         self.player = player.Player(pyxel.width / 2, 200, 10, 10, 1, 2)
         self.enemy = enemy1.Enemy1(pyxel.width / 2, 20, 16, 16, 700, 8)
+        self.enemy_max_hp = self.enemy.hp
         self.return_value = 0
 
     def update(self):
@@ -19,6 +20,7 @@ class Mission():
     def draw(self):
         self.player.draw()
         self.enemy.draw()
+        pyxel.line(10, 10, 170 * self.enemy.hp / self.enemy_max_hp, 10, 13)
 
     def enemy_playerbullet_detection(self):
         x1 = self.enemy.view_start_x
