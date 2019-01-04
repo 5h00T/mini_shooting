@@ -33,9 +33,9 @@ class Mission():
 
         if self.is_clear:
             if self.after_clear_time % 30 < 15:
-                pyxel.text(90, pyxel.height / 2, "Clear!", 14)
+                pyxel.text(85, pyxel.height / 2, "Clear!", 14)
             else:
-                pyxel.text(90, pyxel.height / 2, "Clear!", 15)
+                pyxel.text(85, pyxel.height / 2, "Clear!", 15)
 
     def enemy_playerbullet_detection(self):
         x1 = self.enemy.view_start_x

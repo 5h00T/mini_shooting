@@ -21,7 +21,6 @@ class Player():
         self.bullet_pool = bullet_pool.PlayerBulletPool(30)
         self.bullets = []
 
-
     @classmethod
     def getPosition(cls):
         return cls.x, cls.y
