@@ -7,7 +7,6 @@ class Mission():
     def __init__(self):
         print("Mission")
         self.player = player.Player(pyxel.width / 2, 200, 10, 10, 1, 2)
-        self.enemy = enemy1.Enemy1(pyxel.width / 2, 20, 16, 16, 300, 8)
         self.enemy_max_hp = self.enemy.hp
         self.return_value = 0
         self.is_clear = False
@@ -54,15 +53,16 @@ class Mission():
         player_y = self.player.y
         player_r = self.player.collision_radius
         # print(player_x, player_y, player_r)
-        for enemy_bullet in self.enemy.bullets:
-            x = enemy_bullet.x
-            y = enemy_bullet.y
-            r = enemy_bullet.radius
-            # print(x, y, r)
-            if (player_x - x)**2 + (player_y - y)**2 <= (player_r + r)**2:
-                # print("Hit")
-                enemy_bullet.is_active = False
-                return True
+        for shot_position in self.enemy.shot_positions:
+            for enemy_bullet in shot_position.bullets:
+                x = enemy_bullet.x
+                y = enemy_bullet.y
+                r = enemy_bullet.radius
+                print(x, y, r)
+                if (player_x - x) ** 2 + (player_y - y) ** 2 <= (player_r + r) ** 2:
+                    # print("Hit")
+                    enemy_bullet.is_active = False
+                    return True
         return False
 
     def collision_detection(self):

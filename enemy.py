@@ -14,20 +14,37 @@ class Enemy():
         self.count = 0
         self.view_start_x = self.x - self.width / 2
         self.view_start_y = self.y - self.height / 2
-        self.bullets = []
-        self.bullet_pool = bullet_pool.EnemyBulletPool(1)
+        self.shot_positions = []
 
     def update(self):
         self.count += 1
 
+        for shot_position in self.shot_positions:
+            shot_position.update()
+
+    def draw(self):
+        pyxel.rect(self.view_start_x, self.view_start_y, self.view_start_x + self.width,
+                   self.view_start_y + self.height, self.color)
+
+        for shot_position in self.shot_positions:
+            shot_position.draw()
+
+
+class ShotPosition():
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.bullets = []
+        self.bullet_pool = bullet_pool.EnemyBulletPool(1)
+
+    def update(self):
         for b in self.bullets:
             b.update()
             if not b.is_active:
                 self.bullets.remove(b)
 
     def draw(self):
-        pyxel.rect(self.view_start_x, self.view_start_y, self.view_start_x + self.width,
-                   self.view_start_y + self.height, self.color)
         for b in self.bullets:
             b.draw()
 
