@@ -1,4 +1,5 @@
 import pyxel
+from scene import Scene
 
 
 class MissionSelect():
@@ -17,20 +18,20 @@ class MissionSelect():
 
         if pyxel.btnp(pyxel.KEY_Z, 10, 10):
             if self.cursor == 0:
-                return 5, 1
+                return Scene.MISSION, 1
             elif self.cursor == 1:
-                return 5, 2
+                return Scene.MISSION, 2
             elif self.cursor == 2:
-                return 3
+                return Scene.MISSION, 3
 
         if pyxel.btn(pyxel.KEY_X):
-            return 1
+            return Scene.MENU, 0
 
-        return 0
+        return Scene.NO_SCENE_CHANGE, 0
 
     def draw(self):
         for i in range(len(self.missions)):
             if i == self.cursor:
-                pyxel.text(50, 150 + i * 20, self.missions[i], 8)
+                pyxel.text(63, 150 + i * 20, self.missions[i], 8)
             else:
-                pyxel.text(60, 150 + i * 20, self.missions[i], 5)
+                pyxel.text(73, 150 + i * 20, self.missions[i], 5)

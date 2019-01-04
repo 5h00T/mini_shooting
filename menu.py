@@ -1,5 +1,5 @@
 import pyxel
-import enum
+from scene import Scene
 
 
 class Menu():
@@ -18,19 +18,19 @@ class Menu():
 
         if pyxel.btnp(pyxel.KEY_Z, 10, 10):
             if self.cursor == 0:
-                return 2
+                return Scene.MISSION_SELECT, 0
             elif self.cursor == 1:
-                return 3
+                return Scene.SETTINGS, 0
             elif self.cursor == 2:
-                return 4
+                return Scene.EXIT, 0
 
-        return 0
+        return Scene.NO_SCENE_CHANGE, 0
 
     def draw(self):
         for i in range(len(self.menu_item)):
             if i == self.cursor:
-                pyxel.text(50, 150 + i * 20, self.menu_item[i], 8)
+                pyxel.text(63, 150 + i * 20, self.menu_item[i], 8)
             else:
-                pyxel.text(60, 150 + i * 20, self.menu_item[i], 5)
+                pyxel.text(73, 150 + i * 20, self.menu_item[i], 5)
 
 

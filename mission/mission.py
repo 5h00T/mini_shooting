@@ -1,6 +1,8 @@
 import enemy1
 import pyxel
 import player
+from scene import Scene
+
 
 class Mission():
 
@@ -8,21 +10,32 @@ class Mission():
         print("Mission")
         self.player = player.Player(pyxel.width / 2, 200, 10, 10, 1, 2)
         self.enemy_max_hp = self.enemy.hp
-        self.return_value = 0
+        self.return_value = Scene.NO_SCENE_CHANGE
         self.is_clear = False
+        self.after_clear_time = 0
 
     def update(self):
         self.player.update()
         if not self.is_clear:
             self.enemy.update()
             self.collision_detection()
+        else:
+            self.after_clear_time += 1
 
+        if self.after_clear_time == 180:
+            self.return_value = Scene.MISSION_SELECT
 
     def draw(self):
         self.player.draw()
         if not self.is_clear:
             self.enemy.draw()
             pyxel.line(10, 10, 170 * self.enemy.hp / self.enemy_max_hp + 10, 10, 13)
+
+        if self.is_clear:
+            if self.after_clear_time % 30 < 15:
+                pyxel.text(90, pyxel.height / 2, "Clear!", 14)
+            else:
+                pyxel.text(90, pyxel.height / 2, "Clear!", 15)
 
     def enemy_playerbullet_detection(self):
         x1 = self.enemy.view_start_x
@@ -68,9 +81,7 @@ class Mission():
     def collision_detection(self):
         self.enemy_playerbullet_detection()
         if self.player_enemybullet_detection():
-            self.return_value = 2
+            self.return_value = Scene.MISSION_SELECT
 
     def mission_clear(self):
         self.is_clear = True
-        print("Clear!!")
-        pass
