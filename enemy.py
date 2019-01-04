@@ -15,7 +15,7 @@ class Enemy():
         self.view_start_x = self.x - self.width / 2
         self.view_start_y = self.y - self.height / 2
         self.bullets = []
-        self.bullet_pool = bullet_pool.EnemyBulletPool(200)
+        self.bullet_pool = bullet_pool.EnemyBulletPool(1)
 
     def update(self):
         self.count += 1

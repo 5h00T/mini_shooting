@@ -37,7 +37,7 @@ class Player():
         self.move()
 
         if pyxel.btnp(pyxel.KEY_Z, 10, 10):
-            self.shot(9, -110.0, 5, 1, 1, 1)
+            self.shot(9, -102.0, 3, 5, 1, 1)
 
     def draw(self):
         pyxel.rect(self.view_start_x, self.view_start_y, self.view_start_x + self.width,

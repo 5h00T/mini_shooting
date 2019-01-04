@@ -6,8 +6,8 @@ class Mission():
 
     def __init__(self):
         print("Mission")
-        self.player = player.Player(pyxel.width / 2, 200, 10, 10, 2, 2)
-        self.enemy = enemy1.Enemy1(pyxel.width / 2, 10, 16, 16, 1000, 8)
+        self.player = player.Player(pyxel.width / 2, 200, 10, 10, 1, 2)
+        self.enemy = enemy1.Enemy1(pyxel.width / 2, 20, 16, 16, 700, 8)
 
     def update(self):
         self.player.update()
@@ -18,12 +18,11 @@ class Mission():
         self.player.draw()
         self.enemy.draw()
 
-    def collision_detection(self):
+    def enemy_playerbullet_detection(self):
         x1 = self.enemy.view_start_x
         y1 = self.enemy.view_start_y
         x2 = self.enemy.view_start_x + self.enemy.width
         y2 = self.enemy.view_start_y + self.enemy.height
-        print(x1, y1, x2, y2)
         for player_bullet in self.player.bullets:
             x = player_bullet.x
             y = player_bullet.y
@@ -39,4 +38,20 @@ class Mission():
             if C1 or C2 or C3 or C4 or C5 or C6:
                 self.enemy.hp -= 1
                 player_bullet.is_active = False
-                print(self.enemy.hp)
+
+    def player_enemybullet_detection(self):
+        player_x = self.player.x
+        player_y = self.player.y
+        player_r = self.player.collision_radius
+        # print(player_x, player_y, player_r)
+        for enemy_bullet in self.enemy.bullets:
+            x = enemy_bullet.x
+            y = enemy_bullet.y
+            r = enemy_bullet.radius
+            # print(x, y, r)
+            if (player_x - x)**2 + (player_y - y)**2 <= (player_r + r)**2:
+                print("A")
+
+    def collision_detection(self):
+        self.enemy_playerbullet_detection()
+        self.player_enemybullet_detection()
