@@ -7,7 +7,7 @@ class Mission():
     def __init__(self):
         print("Mission")
         self.player = player.Player(pyxel.width / 2, 200, 10, 10, 1, 2)
-        self.enemy = enemy1.Enemy1(pyxel.width / 2, 20, 16, 16, 700, 8)
+        self.enemy = enemy1.Enemy1(pyxel.width / 2, 20, 16, 16, 300, 8)
         self.enemy_max_hp = self.enemy.hp
         self.return_value = 0
 
