@@ -37,9 +37,7 @@ class Player():
         self.move()
 
         if pyxel.btnp(pyxel.KEY_Z, 10, 10):
-            self.shot(9, -110.0, 5, 1, 1, 1)
-
-        print(len(self.bullets))
+            self.shot(6, -97.5, 3, 5, 1, 1)
 
     def draw(self):
         pyxel.rect(self.view_start_x, self.view_start_y, self.view_start_x + self.width,
@@ -57,21 +55,29 @@ class Player():
 
         if pyxel.btn(pyxel.KEY_RIGHT):
             Player.x += self.speed * (slanting_speed if is_slanting else 1)
-            self.view_start_x = Player.x - self.width / 2
-            self.view_start_y = Player.y - self.height / 2
         elif pyxel.btn(pyxel.KEY_LEFT):
             Player.x -= self.speed * (slanting_speed if is_slanting else 1)
-            self.view_start_x = Player.x - self.width / 2
-            self.view_start_y = Player.y - self.height / 2
 
         if pyxel.btn(pyxel.KEY_UP):
             Player.y -= self.speed * (slanting_speed if is_slanting else 1)
-            self.view_start_x = Player.x - self.width / 2
-            self.view_start_y = Player.y - self.height / 2
         elif pyxel.btn(pyxel.KEY_DOWN):
             Player.y += self.speed * (slanting_speed if is_slanting else 1)
-            self.view_start_x = Player.x - self.width / 2
-            self.view_start_y = Player.y - self.height / 2
+
+        self.view_start_x = Player.x - self.width / 2
+        self.view_start_y = Player.y - self.height / 2
+
+        if self.view_start_x < 0:
+            Player.x = self.width / 2
+        elif self.view_start_x + self.width >= pyxel.width:
+            Player.x = pyxel.width - self.width / 2 - 1
+
+        if self.view_start_y < 0:
+            Player.y = self.height / 2
+        elif self.view_start_y + self.height >= pyxel.height:
+            Player.y = pyxel.height - self.height / 2 - 1
+
+        self.view_start_x = Player.x - self.width / 2
+        self.view_start_y = Player.y - self.height / 2
 
     def shot(self, way, start_angle, delta_angle, speed, radius, color):
         angle = start_angle
