@@ -1,16 +1,9 @@
 import pyxel
 import mission_select
 import menu
-import enum
+from scene import Scene
 import mission_manager
 import missions
-
-class Scene(enum.IntEnum):
-    MENU = 1
-    MISSION_SELECT = 2
-    SETTINGS = 3
-    EXIT = 4
-    MISSION = 5
 
 
 class SceneManager():
