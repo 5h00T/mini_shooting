@@ -22,7 +22,7 @@ class App:
     def draw(self):
         pyxel.cls(7)
         self.scene_manager.draw()
-        pyxel.text(100, 220, str(self.frame30)[:4], 3)
+        pyxel.text(173, 246, str(self.frame30)[:4], 3)
         pyxel.text(100, 240, str(pyxel.frame_count), 3)
 
 

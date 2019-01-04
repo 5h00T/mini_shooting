@@ -32,6 +32,6 @@ class MissionSelect():
     def draw(self):
         for i in range(len(self.missions)):
             if i == self.cursor:
-                pyxel.text(50, 150 + i * 20, self.missions[i], 8)
+                pyxel.text(63, 150 + i * 20, self.missions[i], 8)
             else:
-                pyxel.text(60, 150 + i * 20, self.missions[i], 5)
+                pyxel.text(73, 150 + i * 20, self.missions[i], 5)

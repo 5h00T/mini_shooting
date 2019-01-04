@@ -29,8 +29,8 @@ class Menu():
     def draw(self):
         for i in range(len(self.menu_item)):
             if i == self.cursor:
-                pyxel.text(50, 150 + i * 20, self.menu_item[i], 8)
+                pyxel.text(63, 150 + i * 20, self.menu_item[i], 8)
             else:
-                pyxel.text(60, 150 + i * 20, self.menu_item[i], 5)
+                pyxel.text(73, 150 + i * 20, self.menu_item[i], 5)
 
 
