@@ -25,6 +25,9 @@ class Mission():
         if self.after_clear_time == 180:
             self.return_value = Scene.MISSION_SELECT
 
+        if pyxel.btn(pyxel.KEY_Q) and not self.is_clear:
+            self.return_value = Scene.MISSION_SELECT
+
     def draw(self):
         self.player.draw()
         if not self.is_clear:
