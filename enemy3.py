@@ -15,7 +15,7 @@ class Enemy3(enemy.Enemy):
         if self.count % 40 == 0:
             self.shot_positions[0].pattern4(4, 90, 2.1)
 
-        self.move_pattern1(1.2, 1, 2, math.pi/2, self.count/30)
+        self.move_pattern1(2, 0.5, 1, 2, math.pi/2, self.count/30)
 
     def draw(self):
         super().draw()
