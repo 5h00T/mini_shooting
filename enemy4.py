@@ -9,11 +9,13 @@ class Enemy4(enemy.Enemy):
 
     def update(self):
         super().update()
-        if self.count % 8 == 0:
+        if self.count % 2 == 0:
             self.shot_positions[0].pattern1(90 + 30 * math.sin(self.count), 1.8)
-            self.shot_positions[0].pattern1(-90 + 30 * math.sin(self.count), 1.8)
 
-        self.move_pattern1(1, 1, 1, 2, math.pi/2, self.count/30)
+        if self.count % 10 == 0:
+            self.shot_positions[0].pattern1(-90 + 30 * math.sin(self.count), 1.8)
+            self.shot_positions[0].pattern1(0 + 30 * math.sin(self.count), 1.8)
+            self.shot_positions[0].pattern1(180 + 30 * math.sin(self.count), 1.8)
 
     def draw(self):
         super().draw()
