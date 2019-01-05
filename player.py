@@ -48,19 +48,25 @@ class Player():
     def move(self):
         is_slanting = False
         slanting_speed = 0.71
+        is_slow = False
+        slow_speed = 0.5
+
+        if pyxel.btn(pyxel.KEY_LEFT_SHIFT):
+            is_slow = True
+
         if (pyxel.btn(pyxel.KEY_RIGHT) or pyxel.btn(pyxel.KEY_LEFT)) and \
             (pyxel.btn(pyxel.KEY_UP) or pyxel.btn(pyxel.KEY_DOWN)):
             is_slanting = True
 
         if pyxel.btn(pyxel.KEY_RIGHT):
-            Player.x += self.speed * (slanting_speed if is_slanting else 1)
+            Player.x += self.speed * (slanting_speed if is_slanting else 1) * (slanting_speed if is_slow else 1)
         elif pyxel.btn(pyxel.KEY_LEFT):
-            Player.x -= self.speed * (slanting_speed if is_slanting else 1)
+            Player.x -= self.speed * (slanting_speed if is_slanting else 1) * (slanting_speed if is_slow else 1)
 
         if pyxel.btn(pyxel.KEY_UP):
-            Player.y -= self.speed * (slanting_speed if is_slanting else 1)
+            Player.y -= self.speed * (slanting_speed if is_slanting else 1) * (slanting_speed if is_slow else 1)
         elif pyxel.btn(pyxel.KEY_DOWN):
-            Player.y += self.speed * (slanting_speed if is_slanting else 1)
+            Player.y += self.speed * (slanting_speed if is_slanting else 1) * (slanting_speed if is_slow else 1)
 
         self.view_start_x = Player.x - self.width / 2
         self.view_start_y = Player.y - self.height / 2
