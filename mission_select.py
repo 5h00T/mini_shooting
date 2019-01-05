@@ -7,7 +7,7 @@ class MissionSelect():
     def __init__(self):
         print("MissionSelect")
         self.cursor = 0
-        self.missions = ["mission1", "mission2", "mission3", "mission4", "mission5", "mission6"]
+        self.missions = ["mission1", "mission2", "mission3", "mission4", "mission5", "mission6", "mission7"]
         self.is_active = True
 
     def update(self):
@@ -29,6 +29,8 @@ class MissionSelect():
                 return Scene.MISSION, 5
             elif self.cursor == 5:
                 return Scene.MISSION, 6
+            elif self.cursor == 6:
+                return Scene.MISSION, 7
 
         if pyxel.btn(pyxel.KEY_X):
             return Scene.MENU, 0
