@@ -7,7 +7,7 @@ class MissionSelect():
     def __init__(self):
         print("MissionSelect")
         self.cursor = 0
-        self.missions = ["mission1", "mission2", "mission3"]
+        self.missions = ["mission1", "mission2", "mission3", "mission4", "mission5", "mission6"]
         self.is_active = True
 
     def update(self):
@@ -23,6 +23,12 @@ class MissionSelect():
                 return Scene.MISSION, 2
             elif self.cursor == 2:
                 return Scene.MISSION, 3
+            elif self.cursor == 3:
+                return Scene.MISSION, 4
+            elif self.cursor == 4:
+                return Scene.MISSION, 5
+            elif self.cursor == 5:
+                return Scene.MISSION, 6
 
         if pyxel.btn(pyxel.KEY_X):
             return Scene.MENU, 0
@@ -32,6 +38,6 @@ class MissionSelect():
     def draw(self):
         for i in range(len(self.missions)):
             if i == self.cursor:
-                pyxel.text(63, 150 + i * 20, self.missions[i], 8)
+                pyxel.text(67, 100 + i * 20, self.missions[i], 8)
             else:
-                pyxel.text(73, 150 + i * 20, self.missions[i], 5)
+                pyxel.text(77, 100 + i * 20, self.missions[i], 5)
