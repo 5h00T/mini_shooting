@@ -14,7 +14,7 @@ class MissionSelect():
         if pyxel.btnp(pyxel.KEY_UP, 30, 30):
             self.cursor = max(0, self.cursor - 1)
         elif pyxel.btnp(pyxel.KEY_DOWN, 30, 30):
-            self.cursor = min(2, self.cursor + 1)
+            self.cursor = min(len(self.missions) - 1, self.cursor + 1)
 
         if pyxel.btnp(pyxel.KEY_Z, 10, 10):
             if self.cursor == 0:

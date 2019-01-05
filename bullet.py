@@ -7,6 +7,7 @@ class Bullet():
         self.x = x
         self.y = y
         self.radius = radius
+        self.collision_radius = self.radius * 0.5
         self.speed = speed
         self.color = color
         self.count = 0
@@ -28,9 +29,6 @@ class Bullet():
     def draw(self):
         if self.is_active:
             pyxel.circ(self.x, self.y, self.radius, self.color)
-
-    def pattern1(self):
-        pass
 
 
 class EnemyBullet(Bullet):
