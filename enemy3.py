@@ -13,7 +13,7 @@ class Enemy3(enemy.Enemy):
     def update(self):
         super().update()
         if self.count % 40 == 0:
-            self.shot_positions[0].pattern4(6, 5, 2.1)
+            self.shot_positions[0].pattern4(6, 60, 2.1)
 
         self.move_pattern1(2, 0.5, 1, 2, math.pi/2, self.count/30)
 
