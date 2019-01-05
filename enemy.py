@@ -63,6 +63,7 @@ class ShotPosition():
         self.bullet_pool = bullet_pool.EnemyBulletPool(200)
 
     def update(self):
+        print("bullets", len(self.bullets))
         for b in self.bullets:
             b.update()
             if not b.is_active:
@@ -116,7 +117,7 @@ class ShotPosition():
 
     def pattern4(self, way, angle, speed):
         """
-
+        angle度間隔が開いたway弾をランダムな角度で発射する
         :param way:
         :param angle:
         :return:
