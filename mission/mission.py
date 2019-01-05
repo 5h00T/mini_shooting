@@ -25,6 +25,9 @@ class Mission():
         if self.after_clear_time == 180:
             self.return_value = Scene.MISSION_SELECT
 
+        if pyxel.btn(pyxel.KEY_Q) and not self.is_clear:
+            self.return_value = Scene.MISSION_SELECT
+
     def draw(self):
         self.player.draw()
         if not self.is_clear:
@@ -45,7 +48,7 @@ class Mission():
         for player_bullet in self.player.bullets:
             x = player_bullet.x
             y = player_bullet.y
-            r = player_bullet.radius
+            r = player_bullet.collision_radius
 
             C1 = x > x1 and x < x2 and y > y1 - r and y < y2 + r
             C2 = x > x1 - r and x < x2 + r and y > y1 and y < y2
@@ -56,7 +59,6 @@ class Mission():
 
             if C1 or C2 or C3 or C4 or C5 or C6:
                 self.enemy.hp -= 1
-                print(self.enemy.hp)
                 if self.enemy.hp <= 0:
                     self.mission_clear()
                 player_bullet.is_active = False
@@ -70,10 +72,8 @@ class Mission():
             for enemy_bullet in shot_position.bullets:
                 x = enemy_bullet.x
                 y = enemy_bullet.y
-                r = enemy_bullet.radius
-                print(x, y, r)
+                r = enemy_bullet.collision_radius
                 if (player_x - x) ** 2 + (player_y - y) ** 2 <= (player_r + r) ** 2:
-                    # print("Hit")
                     enemy_bullet.is_active = False
                     return True
         return False
