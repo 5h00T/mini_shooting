@@ -15,6 +15,7 @@ class Enemy():
         self.view_start_x = self.x - self.width / 2
         self.view_start_y = self.y - self.height / 2
         self.shot_positions = []
+        self.standard_position = self.x
 
     def update(self):
         self.count += 1
@@ -28,6 +29,28 @@ class Enemy():
 
         for shot_position in self.shot_positions:
             shot_position.draw()
+
+    def move_pattern1(self, A, a, b, delta, t):
+        """
+        x = A cos(at)
+        y = A sin(bt+delta)
+        の式を用いて座標を更新する
+        :param A: 振幅
+        :param a: 角周波数
+        :param b: 角周波数
+        :param delta: 位相差
+        :param t:
+        :return:
+        """
+        self.x = A * math.cos(a * t) + self.x
+        self.y = A * math.sin(b * t + delta) + self.y
+
+        for shot_position in self.shot_positions:
+            shot_position.x = A * math.cos(a * t) + shot_position.x
+            shot_position.y = A * math.sin(b * t + delta) + shot_position.y
+
+        self.view_start_x = self.x - self.width / 2
+        self.view_start_y = self.y - self.height / 2
 
 
 class ShotPosition():
@@ -89,3 +112,4 @@ class ShotPosition():
             if b:
                 self.bullets.append(b)
             _angle += angle
+
