@@ -2,6 +2,7 @@ import bullet_pool
 import player
 import pyxel
 import math
+import random
 
 class Enemy():
     def __init__(self, x, y, width, height, hp,color):
@@ -113,3 +114,17 @@ class ShotPosition():
                 self.bullets.append(b)
             _angle += angle
 
+    def pattern4(self, way, angle, speed):
+        """
+
+        :param way:
+        :param angle:
+        :return:
+        """
+        _angle = random.uniform(0, 360)
+        for i in range(way):
+            b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(math.radians(_angle)),
+                                            math.sin(math.radians(_angle)), speed, 0)
+            if b:
+                self.bullets.append(b)
+            _angle += angle

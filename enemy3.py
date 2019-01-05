@@ -12,10 +12,10 @@ class Enemy3(enemy.Enemy):
 
     def update(self):
         super().update()
-        if self.count % 70 == 0:
-            self.shot_positions[0].pattern3(3, 18, 1.1)
+        if self.count % 40 == 0:
+            self.shot_positions[0].pattern4(4, 90, 2.1)
 
-        self.move_pattern1(1, 1, 2, math.pi/2, self.count/20)
+        self.move_pattern1(1.2, 1, 2, math.pi/2, self.count/30)
 
     def draw(self):
         super().draw()
