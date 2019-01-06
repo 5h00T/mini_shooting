@@ -151,7 +151,7 @@ class ShotPosition():
 
 class Bit():
 
-    def __init__(self, x, y, width, height, hp, color):
+    def __init__(self, x, y, width, height, hp, color, const_parameter=None):
         self.x = x
         self.y = y
         self.width = width
@@ -159,6 +159,7 @@ class Bit():
         self.hp = hp
         self.color = color
         self.count = 0
+        self.const_parameter = const_parameter
         self.view_start_x = self.x - self.width / 2
         self.view_start_y = self.y - self.height / 2
         self.shot_position = ShotPosition(self.x, self.y)

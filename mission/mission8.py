@@ -5,8 +5,8 @@ from . import mission
 class Mission8(mission.Mission):
 
     def __init__(self):
-        print("Mission6")
-        self.enemy = enemy8.Enemy8(pyxel.width / 2, 40, 16, 16, 90, 8)
+        print("Mission8")
+        self.enemy = enemy8.Enemy8(pyxel.width / 2, 40, 16, 16, 220, 8)
         super().__init__()
 
     def update(self):
