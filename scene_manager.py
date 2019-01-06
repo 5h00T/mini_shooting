@@ -20,7 +20,7 @@ class SceneManager():
             self.scene = menu.Menu()
         elif scene_transition[0] == Scene.MISSION_SELECT:
             print("2")
-            self.scene = mission_select.MissionSelect()
+            self.scene = mission_select.MissionSelect(scene_transition[1])
         elif scene_transition[0] == Scene.SETTINGS:
             print("3")
         elif scene_transition[0] == Scene.EXIT:

@@ -4,10 +4,10 @@ from scene import Scene
 
 class MissionSelect():
 
-    def __init__(self):
+    def __init__(self, cursor_position):
         print("MissionSelect")
-        self.cursor = 0
-        self.missions = ["mission1", "mission2", "mission3", "mission4", "mission5", "mission6", "mission7"]
+        self.cursor = cursor_position
+        self.missions = ["mission1", "mission2", "mission3", "mission4", "mission5", "mission6", "mission7", "mission8"]
         self.is_active = True
 
     def update(self):
@@ -31,6 +31,8 @@ class MissionSelect():
                 return Scene.MISSION, 6
             elif self.cursor == 6:
                 return Scene.MISSION, 7
+            elif self.cursor == 7:
+                return Scene.MISSION, 8
 
         if pyxel.btn(pyxel.KEY_X):
             return Scene.MENU, 0
