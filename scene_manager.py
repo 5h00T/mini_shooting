@@ -30,6 +30,5 @@ class SceneManager():
             print("MISSION")
             self.scene = mission_manager.Mission(missions.missions[str(scene_transition[1])])
 
-
     def draw(self):
         self.scene.draw()
