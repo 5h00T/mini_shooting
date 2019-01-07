@@ -18,7 +18,7 @@ class Menu():
 
         if pyxel.btnp(pyxel.KEY_Z, 10, 10):
             if self.cursor == 0:
-                return Scene.MISSION_SELECT, 0
+                return Scene.MISSION_SELECT, 1
             elif self.cursor == 1:
                 return Scene.SETTINGS, 0
             elif self.cursor == 2:
