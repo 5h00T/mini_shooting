@@ -20,15 +20,13 @@ class Enemy8(enemy.Enemy):
                 if bit.is_active:
                     bit.shot_position.pattern1(random.randint(50, 130), 2)
 
-        if self.count > 130 and self.count % 100 == 0 and len(self.bits) < 5:
+        if self.count > 130 and self.count % 90 == 0 and len(self.bits) < 5:
             self.bits.append(enemy.Bit(self.x, self.y, 10, 10, 15, 4, {
                 "move_speed": random.randint(30, 60),
                 "direction": 1 if random.random() > 0.5 else -1}))
 
         if self.count % 50 == 0:
             self.shot_positions[0].pattern3(3, 9, 1.8)
-
-        # self.move_pattern1(1, 1, 2, 2, math.pi/4, self.count / 30)
 
     def draw(self):
         super().draw()
