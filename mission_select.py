@@ -12,9 +12,9 @@ class MissionSelect():
         self.is_active = True
 
     def update(self):
-        if pyxel.btnp(pyxel.KEY_UP, 30, 30):
+        if pyxel.btnp(pyxel.KEY_UP, 30, 20):
             self.cursor = max(1, self.cursor - 1)
-        elif pyxel.btnp(pyxel.KEY_DOWN, 30, 30):
+        elif pyxel.btnp(pyxel.KEY_DOWN, 30, 20):
             self.cursor = min(len(self.missions), self.cursor + 1)
 
         if pyxel.btnp(pyxel.KEY_Z, 10, 10):
@@ -37,6 +37,8 @@ class MissionSelect():
             if i+1 == self.cursor:
                 pyxel.text(67, 120, self.missions[i], 8)
             elif i+1 > self.cursor:
-                pyxel.text(67 + abs(self.cursor - i)**1.1 * 5, 120 - (self.cursor - i) * 10 + 20, self.missions[i], 5)
+                pyxel.text(67 + abs(self.cursor - i-1) ** 1.1 * 5,
+                           120 - (self.cursor - i) * 10 + 20, self.missions[i], 5)
             else:
-                pyxel.text(67 + abs(self.cursor - i) ** 1.1 * 5, 120 - (self.cursor - i) * 10, self.missions[i],5)
+                pyxel.text(67 + abs(self.cursor - i-1) ** 1.1 * 5,
+                           120 - (self.cursor - i) * 10 + 10, self.missions[i], 5)

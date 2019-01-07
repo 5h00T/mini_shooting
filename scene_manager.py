@@ -16,15 +16,15 @@ class SceneManager():
     def update(self):
         scene_transition = self.scene.update()
         if scene_transition[0] == Scene.MENU:
-            print("1")
+            print("MENU")
             self.scene = menu.Menu()
         elif scene_transition[0] == Scene.MISSION_SELECT:
-            print("2")
+            print("MISSION_SELECT")
             self.scene = mission_select.MissionSelect(scene_transition[1])
         elif scene_transition[0] == Scene.SETTINGS:
-            print("3")
+            print("SETTINGS")
         elif scene_transition[0] == Scene.EXIT:
-            print("4")
+            print("EXIT")
             pyxel.quit()
         elif scene_transition[0] == Scene.MISSION:
             print("MISSION")

@@ -151,11 +151,13 @@ class ShotPosition():
 
 class Bit():
 
-    def __init__(self, x, y, width, height, hp, color, const_parameter=None):
+    def __init__(self, x, y, width, height, movement_x, movement_y, hp, color, const_parameter=None):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
+        self.movement_x = movement_x
+        self.movement_y = movement_y
         self.hp = hp
         self.color = color
         self.count = 0
@@ -168,6 +170,9 @@ class Bit():
     def update(self):
         self.count += 1
         self.shot_position.update()
+
+        if self.x < -10 or self.x > pyxel.width + 10 or self.y < 0 - 10 or self.y > pyxel.height + 10:
+            self.is_active = False
 
     def draw(self):
         if self.is_active:
@@ -190,6 +195,13 @@ class Bit():
         """
         self.shot_position.x = self.x = A * math.cos(a * t) + self.x
         self.shot_position.y = self.y = B * math.sin(b * t + delta) + self.y
+
+        self.view_start_x = self.x - self.width / 2
+        self.view_start_y = self.y - self.height / 2
+
+    def move_pattern2(self, speed):
+        self.shot_position.x = self.x = self.movement_x * speed + self.x
+        self.shot_position.y = self.y = self.movement_y * speed + self.y
 
         self.view_start_x = self.x - self.width / 2
         self.view_start_y = self.y - self.height / 2
