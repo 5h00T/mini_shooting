@@ -63,6 +63,30 @@ class Mission():
                     self.mission_clear()
                 player_bullet.is_active = False
 
+    def bit_playerbullet_detection(self):
+        for bit in self.enemy.bits:
+            x1 = bit.view_start_x
+            y1 = bit.view_start_y
+            x2 = bit.view_start_x + bit.width
+            y2 = bit.view_start_y + bit.height
+            for player_bullet in self.player.bullets:
+                x = player_bullet.x
+                y = player_bullet.y
+                r = player_bullet.collision_radius
+
+                C1 = x > x1 and x < x2 and y > y1 - r and y < y2 + r
+                C2 = x > x1 - r and x < x2 + r and y > y1 and y < y2
+                C3 = (x1 - x) ** 2 + (y1 - y) ** 2 < r ** 2
+                C4 = (x2 - x) ** 2 + (y1 - y) ** 2 < r ** 2
+                C5 = (x2 - x) ** 2 + (y2 - y) ** 2 < r ** 2
+                C6 = (x1 - x) ** 2 + (y2 - y) ** 2 < r ** 2
+
+                if C1 or C2 or C3 or C4 or C5 or C6 and bit.is_active:
+                    bit.hp -= 1
+                    if bit.hp <= 0:
+                        bit.is_active = False
+                    player_bullet.is_active = False
+
     def player_enemybullet_detection(self):
         player_x = self.player.x
         player_y = self.player.y
@@ -78,9 +102,26 @@ class Mission():
                     return True
         return False
 
+    def player_bitbullet_detection(self):
+        player_x = self.player.x
+        player_y = self.player.y
+        player_r = self.player.collision_radius
+        # print(player_x, player_y, player_r)
+        for bit in self.enemy.bits:
+            for bit_bullet in bit.shot_position.bullets:
+                print("AD")
+                x = bit_bullet.x
+                y = bit_bullet.y
+                r = bit_bullet.collision_radius
+                if (player_x - x) ** 2 + (player_y - y) ** 2 <= (player_r + r) ** 2:
+                    bit_bullet.is_active = False
+                    return True
+        return False
+
     def collision_detection(self):
         self.enemy_playerbullet_detection()
-        if self.player_enemybullet_detection():
+        self.bit_playerbullet_detection()
+        if self.player_enemybullet_detection() or self.player_bitbullet_detection():
             self.return_value = Scene.MISSION_SELECT
 
     def mission_clear(self):
