@@ -14,7 +14,7 @@ class Enemy9(enemy.Enemy):
         super().update()
         for bit in self.bits:
             if bit.is_active:
-                bit.move_pattern2(1.8)
+                bit.move_pattern2(2.5)
 
         if self.count % 50 == 0:
             for bit in self.bits:
@@ -29,7 +29,7 @@ class Enemy9(enemy.Enemy):
                 self.bits.append(enemy.Bit(self.x, self.y, 10, 10, math.cos(angle_to_player) * i,
                                            math.sin(angle_to_player) * i, 6, 4))
 
-        if self.count % 90 == 0:
+        if self.count % 95 == 0:
             self.shot_positions[0].pattern5(7, 2, 5, 1, 0.2)
 
     def draw(self):
