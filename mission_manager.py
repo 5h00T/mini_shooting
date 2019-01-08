@@ -1,4 +1,3 @@
-import pyxel
 from scene import Scene
 
 
@@ -22,4 +21,3 @@ class Mission():
 
     def draw(self):
         self.mission.draw()
-
