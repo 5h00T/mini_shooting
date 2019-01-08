@@ -1,6 +1,4 @@
-import random
-import enemy
-import math
+from enemy import enemy
 
 
 class Enemy7(enemy.Enemy):

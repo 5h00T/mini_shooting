@@ -1,4 +1,3 @@
-import enemy1
 import pyxel
 import player
 from scene import Scene
