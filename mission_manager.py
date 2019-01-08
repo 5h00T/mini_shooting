@@ -6,7 +6,8 @@ class Mission():
     def __init__(self, mission):
         print("Mission", mission)
         self.mission = mission()
-        self.mission_number = int(self.mission.__class__.__name__[-1])
+        print(self.mission.__class__.__name__[-2:])
+        self.mission_number = int(''.join([ch for ch in self.mission.__class__.__name__[-2:] if ch.isdecimal()]))
 
     def update(self):
         self.mission.update()
