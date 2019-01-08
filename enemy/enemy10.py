@@ -34,7 +34,7 @@ class Enemy10(enemy.Enemy):
                 self.shot_count = 0
                 self.main_shot_target_position = \
                     max(min(random.randint(self.main_shot_target_position - 10, self.main_shot_target_position + 10),
-                            120), -60)
+                            105), 75)
 
     def draw(self):
         super().draw()
