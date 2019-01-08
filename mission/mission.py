@@ -81,8 +81,9 @@ class Mission():
                 C5 = (x2 - x) ** 2 + (y2 - y) ** 2 < r ** 2
                 C6 = (x1 - x) ** 2 + (y2 - y) ** 2 < r ** 2
 
-                if C1 or C2 or C3 or C4 or C5 or C6 and bit.is_active:
+                if (C1 or C2 or C3 or C4 or C5 or C6) and bit.is_active:
                     bit.hp -= 1
+
                     if bit.hp <= 0:
                         bit.is_active = False
                     player_bullet.is_active = False

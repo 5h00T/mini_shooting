@@ -21,7 +21,7 @@ class Enemy8(enemy.Enemy):
                     bit.shot_position.pattern1(random.randint(50, 130), 2)
 
         if self.count > 130 and self.count % 90 == 0 and len(self.bits) < 5:
-            self.bits.append(enemy.Bit(self.x, self.y, 10, 10, 15, 4, {
+            self.bits.append(enemy.Bit(self.x, self.y, 10, 10,  0, 0,15, 4, {
                 "move_speed": random.randint(30, 60),
                 "direction": 1 if random.random() > 0.5 else -1}))
 
