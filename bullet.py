@@ -1,4 +1,5 @@
 import pyxel
+import math
 
 
 class Bullet():
@@ -14,6 +15,7 @@ class Bullet():
         self.movement_x = movement_x
         self.movement_y = movement_y
         self.is_active = False
+        self.func = None
 
     def update(self):
         if self.is_active:
@@ -21,6 +23,12 @@ class Bullet():
             self.x += self.movement_x * self.speed
             self.y += self.movement_y * self.speed
             # print(self.x, self.y)
+
+            if self.func is not None:
+                try:
+                    next(self.func)
+                except StopIteration:
+                    self.func = None
 
         if self.x < -10 or self.x > pyxel.width + 10 or self.y < 0 - 10 or self.y > pyxel.height + 10:
             self.is_active = False
@@ -34,7 +42,9 @@ class Bullet():
 class EnemyBullet(Bullet):
 
     def __init__(self, radius, x, y, movement_x, movement_y, speed, color):
-        super().__init__( radius, x, y, movement_x, movement_y, speed, color)
+        super().__init__(radius, x, y, movement_x, movement_y, speed, color)
+        self.func = None
+        self.count = 0
 
     def update(self):
         super().update()
@@ -42,11 +52,25 @@ class EnemyBullet(Bullet):
     def draw(self):
         super().draw()
 
+    def pattern1(self, move1_count, stop_count, angle, speed):
+        print("PO")
+        while True:
+            if self.count == move1_count:
+                print("MO")
+                self.movement_x = self.movement_y = 0
+            elif self.count == move1_count + stop_count:
+                self.movement_x = math.cos(math.radians(angle))
+                self.movement_y = math.sin(math.radians(angle))
+                self.speed = speed
+                break
+
+            yield None
+
 
 class PlayerBullet(Bullet):
 
     def __init__(self, radius, x, y, movement_x, movement_y, speed, color):
-        super().__init__( radius, x, y, movement_x, movement_y, speed, color)
+        super().__init__(radius, x, y, movement_x, movement_y, speed, color)
 
     def update(self):
         super().update()

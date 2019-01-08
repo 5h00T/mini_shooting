@@ -3,6 +3,7 @@ import player
 import pyxel
 import math
 import random
+import bullet
 
 class Enemy():
     def __init__(self, x, y, width, height, hp,color):
@@ -150,6 +151,15 @@ class ShotPosition():
             _angle += angle
 
     def pattern5(self, way, angle, num, speed, delta_speed):
+        """
+        angle度間隔が開いた自機狙いway弾をnum発delta_speedずつ速度を増やしながら発射する
+        :param way: way数
+        :param angle: 弾の間の角度
+        :param num: 連数
+        :param speed: 弾のスピード
+        :param delta_speed: 連毎に増やす速度
+        :return:
+        """
 
         player_x, player_y = player.Player.getPosition()
         angle_to_player = math.atan2(player_y - self.y, player_x - self.x)
@@ -165,6 +175,54 @@ class ShotPosition():
 
                 _speed += delta_speed
             _angle += angle
+
+    def pattern6(self, angle1, angle2, speed1, speed2, t1, t2):
+        """
+        angle度の方向に一発発射する
+        :param angle1: 角度
+        :return:
+        """
+        b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(math.radians(angle1)), math.sin(math.radians(angle1)), speed1, 0)
+        if b:
+            self.bullets.append(b)
+            b.func = b.pattern1(t1, t2, angle2, speed2)
+
+    def pattern7(self, way, angle, speed):
+        """
+        全方位num弾を最初の弾がangle度に発射されるように発射する
+        :param way:
+        :param angle:
+        :param speed:
+        :return:
+        """
+
+        _angle = angle
+        for i in range(way):
+            b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(math.radians(_angle)),
+                                            math.sin(math.radians(_angle)), speed, 0)
+            if b:
+                self.bullets.append(b)
+            _angle += 360 / way
+
+    def pattern8(self, way, angle1, angle2, speed1, speed2, t1, t2):
+        """
+        全方位num弾を最初の弾がangle度に発射されるように発射する
+        :param way:
+        :param angle1:
+        :param speed1:
+        :return:
+        """
+
+        _angle = angle1
+        for i in range(way):
+            b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(math.radians(_angle)),
+                                            math.sin(math.radians(_angle)), speed1, 0)
+            if b:
+                self.bullets.append(b)
+                b.func = b.pattern1(t1, t2, angle2 + math.degrees(math.atan2(b.movement_y, b.movement_x)), speed2)
+
+            _angle += 360 / way
+
 
 class Bit():
 
