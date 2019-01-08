@@ -7,7 +7,7 @@ class Bullet():
         self.x = x
         self.y = y
         self.radius = radius
-        self.collision_radius = self.radius * 0.5
+        self.collision_radius = self.radius * 0.3
         self.speed = speed
         self.color = color
         self.count = 0
