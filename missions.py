@@ -9,6 +9,7 @@ from mission import mission8
 from mission import mission9
 from mission import mission10
 from mission import mission11
+from mission import mission12
 
 
 missions = {
@@ -23,4 +24,5 @@ missions = {
     "9": mission9.Mission9,
     "10": mission10.Mission10,
     "11": mission11.Mission11,
+    "12": mission12.Mission12,
 }
