@@ -15,7 +15,7 @@ class Bullet():
         self.movement_x = movement_x
         self.movement_y = movement_y
         self.is_active = False
-        self.func = None
+        self.move_func = None
 
     def update(self):
         if self.is_active:
@@ -24,11 +24,11 @@ class Bullet():
             self.y += self.movement_y * self.speed
             # print(self.x, self.y)
 
-            if self.func is not None:
+            if self.move_func is not None:
                 try:
-                    next(self.func)
+                    next(self.move_func)
                 except StopIteration:
-                    self.func = None
+                    self.move_func = None
 
         if self.x < -10 or self.x > pyxel.width + 10 or self.y < 0 - 10 or self.y > pyxel.height + 10:
             self.is_active = False
@@ -43,7 +43,6 @@ class EnemyBullet(Bullet):
 
     def __init__(self, radius, x, y, movement_x, movement_y, speed, color):
         super().__init__(radius, x, y, movement_x, movement_y, speed, color)
-        self.func = None
         self.count = 0
 
     def update(self):
@@ -52,16 +51,25 @@ class EnemyBullet(Bullet):
     def draw(self):
         super().draw()
 
+    def set_move_function(self, move_function):
+        self.move_func = move_function
+
     def pattern1(self, move1_count, stop_count, angle, speed):
-        print("PO")
         while True:
             if self.count == move1_count:
-                print("MO")
                 self.movement_x = self.movement_y = 0
             elif self.count == move1_count + stop_count:
                 self.movement_x = math.cos(math.radians(angle))
                 self.movement_y = math.sin(math.radians(angle))
                 self.speed = speed
+                break
+
+            yield None
+
+    def pattern2(self, a, min_speed, max_speed):
+        while True:
+            self.speed += a
+            if not (min_speed < self.speed < max_speed):
                 break
 
             yield None
