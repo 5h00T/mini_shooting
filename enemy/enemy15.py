@@ -10,20 +10,12 @@ class Enemy15(enemy.Enemy):
         self.shot_positions.append(enemy.ShotPosition(self.x, self.y))
         self.shot_positions.append(enemy.ShotPosition(0, 0))
         self.shot_positions.append(enemy.ShotPosition(pyxel.width, 0))
-        self.shot_count = 0
-        self.start_angle = 0
-        self.delta_angle2 = 60
         self.position_sigma = 10  # 標準偏差
 
     def update(self):
         super().update()
 
-        if self.count % 80 == 0 and len(self.bits) < 4:
-            self.bits.append(enemy.Bit(self.x, self.y, 10, 10, 0, 0, 9, 4, {
-                "move_speed": random.randint(60, 80),
-                "direction": 1 if random.random() > 0.5 else -1}))
-
-        if self.count % 1 == 0 and self.count > 160:
+        if self.count % 2 == 0 and self.count > 160:
             self.shot_positions[1].pattern12(1, 0, random.randint(80, 100), random.gauss(0, self.position_sigma), 0, 2)
             self.shot_positions[2].pattern12(1, 0, random.randint(80, 100), random.gauss(pyxel.width, self.position_sigma), 0, 2)
 
