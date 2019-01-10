@@ -282,6 +282,23 @@ class ShotPosition():
                 _speed += delta_speed
             _angle += angle
 
+    def pattern12(self, way, angle, target_angle, shot_position_x, shot_position_y, speed):
+        """
+        angle度間隔が開いたway弾を中心がtarget_angleの方向に発射する
+        :param way: way数
+        :param angle: 弾の間の角度
+        :param speed: 弾のスピード
+        :return:
+        """
+        _angle = target_angle - way * angle / 2 + angle / 2
+        for i in range(way):
+            b = self.bullet_pool.get_bullet(3, shot_position_x, shot_position_y, math.cos(math.radians(_angle)),
+                                            math.sin(math.radians(_angle)), speed, 0)
+            if b:
+                self.bullets.append(b)
+            _angle += angle
+
+
 class Bit():
 
     def __init__(self, x, y, width, height, movement_x, movement_y, hp, color, const_parameter=None):
