@@ -15,7 +15,7 @@ class Bullet():
         self.movement_x = movement_x
         self.movement_y = movement_y
         self.is_active = False
-        self.move_func = None
+        self.move_functions = []
 
     def update(self):
         if self.is_active:
@@ -24,11 +24,12 @@ class Bullet():
             self.y += self.movement_y * self.speed
             # print(self.x, self.y)
 
-            if self.move_func is not None:
-                try:
-                    next(self.move_func)
-                except StopIteration:
-                    self.move_func = None
+            for move_function in self.move_functions:
+                if move_function is not None:
+                    try:
+                        next(move_function)
+                    except StopIteration:
+                        self.move_functions.remove(move_function)
 
         if self.x < 0 or self.x > pyxel.width or self.y < 0 or self.y > pyxel.height:
             self.is_active = False
@@ -52,7 +53,7 @@ class EnemyBullet(Bullet):
         super().draw()
 
     def set_move_function(self, move_function):
-        self.move_func = move_function
+        self.move_functions.append(move_function)
 
     def pattern1(self, move1_count, stop_count, angle, speed):
         while True:
@@ -66,14 +67,25 @@ class EnemyBullet(Bullet):
 
             yield None
 
-    def pattern2(self, a, min_speed, max_speed):
+    def pattern2(self, a, min_speed, max_speed, start_count, end_count):
         while True:
-            self.speed += a
-            if not (min_speed < self.speed < max_speed):
+            if self.count > start_count:
+                self.speed += a
+                if not (min_speed < self.speed < max_speed):
+                    break
+            elif self.count > end_count:
                 break
 
             yield None
 
+    def pattern3(self, angle, start_count):
+        while True:
+            if self.count == start_count:
+                self.movement_x = math.cos(math.radians(angle))
+                self.movement_y = math.sin(math.radians(angle))
+                break
+
+            yield None
 
 class PlayerBullet(Bullet):
 

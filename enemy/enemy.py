@@ -184,8 +184,7 @@ class ShotPosition():
         """
         b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(math.radians(angle1)), math.sin(math.radians(angle1)), speed1, 0)
         if b:
-            self.bullets.append(b)
-            b.func = b.pattern1(t1, t2, angle2, speed2)
+            b.set_move_function(b.pattern1(t1, t2, angle2, speed2))
 
     def pattern7(self, way, angle, speed):
         """
@@ -223,7 +222,7 @@ class ShotPosition():
 
             _angle += 360 / way
 
-    def pattern9(self, way, angle, speed, a, min_speed, max_speed):
+    def pattern9(self, way, angle, speed, a, min_speed, max_speed, start_count, end_count):
         """
         angle度間隔が開いた自機狙いway弾を発射する
         :param way: way数
@@ -240,7 +239,7 @@ class ShotPosition():
                                             math.sin(math.radians(_angle)), speed, 0)
             if b:
                 self.bullets.append(b)
-                b.set_move_function(b.pattern2(a, min_speed, max_speed))
+                b.set_move_function(b.pattern2(a, min_speed, max_speed, start_count, end_count))
             _angle += angle
 
     def pattern10(self, way, angle, target_angle, speed):
@@ -298,6 +297,25 @@ class ShotPosition():
                 self.bullets.append(b)
             _angle += angle
 
+    def pattern13(self, way, angle1, angle2, start_count, speed):
+        """
+        全方位num弾を最初の弾がangle度に発射されるように発射する
+        発射された弾はstart_count後にangle2度に角度を変える
+        :param way:
+        :param angle1:
+        :param speed:
+        :return:
+        """
+
+        _angle = angle1
+        for i in range(way):
+            b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(math.radians(_angle)),
+                                            math.sin(math.radians(_angle)), speed, 0)
+            if b:
+                self.bullets.append(b)
+                b.set_move_function(b.pattern3(angle2, start_count))
+
+            _angle += 360 / way
 
 class Bit():
 
