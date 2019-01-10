@@ -80,7 +80,7 @@ class ShotPosition():
         self.x = x
         self.y = y
         self.bullets = []
-        self.bullet_pool = bullet_pool.EnemyBulletPool(200)
+        self.bullet_pool = bullet_pool.EnemyBulletPool(300)
 
     def update(self):
         print("bullets", len(self.bullets))
@@ -257,6 +257,29 @@ class ShotPosition():
                                             math.sin(math.radians(_angle)), speed, 0)
             if b:
                 self.bullets.append(b)
+            _angle += angle
+
+    def pattern11(self, way, angle, target_angle, num, speed, delta_speed):
+        """
+        angle度間隔が開いたway弾をnum発delta_speedずつ速度を増やしながらtarget_angle方向に向けて発射する
+        :param way: way数
+        :param angle: 弾の間の角度
+        :param num: 連数
+        :param speed: 弾のスピード
+        :param delta_speed: 連毎に増やす速度
+        :return:
+        """
+
+        _angle = target_angle - way * angle / 2 + angle / 2
+        for i in range(way):
+            _speed = speed
+            for j in range(num):
+                b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(math.radians(_angle)),
+                                                math.sin(math.radians(_angle)), _speed, 0)
+                if b:
+                    self.bullets.append(b)
+
+                _speed += delta_speed
             _angle += angle
 
 class Bit():

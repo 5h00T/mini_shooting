@@ -30,7 +30,7 @@ class Bullet():
                 except StopIteration:
                     self.move_func = None
 
-        if self.x < -10 or self.x > pyxel.width + 10 or self.y < 0 - 10 or self.y > pyxel.height + 10:
+        if self.x < 0 or self.x > pyxel.width or self.y < 0 or self.y > pyxel.height:
             self.is_active = False
             self.count = 0
 
