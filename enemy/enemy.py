@@ -317,6 +317,26 @@ class ShotPosition():
 
             _angle += 360 / way
 
+    def pattern14(self, way, angle1, angle2, speed1, speed2, t1, t2, a, min_speed, max_speed):
+        """
+        全方位num弾を最初の弾がangle度に発射されるように発射する
+        :param way:
+        :param angle:
+        :param speed:
+        :return:
+        """
+
+        _angle = angle1
+        for i in range(way):
+            b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(math.radians(_angle)),
+                                            math.sin(math.radians(_angle)), speed1, 0)
+            if b:
+                self.bullets.append(b)
+                b.set_move_function(b.pattern1(t1, t2, angle2 + math.degrees(math.atan2(b.movement_y, b.movement_x)), speed2))
+                b.set_move_function(b.pattern2(a, min_speed, max_speed, t2, 999))
+
+            _angle += 360 / way
+
 class Bit():
 
     def __init__(self, x, y, width, height, movement_x, movement_y, hp, color, const_parameter=None):

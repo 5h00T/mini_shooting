@@ -25,15 +25,18 @@ class Bullet():
             # print(self.x, self.y)
 
             for move_function in self.move_functions:
+                # print("O")
                 if move_function is not None:
+                    # print("A")
                     try:
                         next(move_function)
                     except StopIteration:
                         self.move_functions.remove(move_function)
 
         if self.x < 0 or self.x > pyxel.width or self.y < 0 or self.y > pyxel.height:
-            self.is_active = False
             self.count = 0
+            self.move_functions.clear()
+            self.is_active = False
 
     def draw(self):
         if self.is_active:
@@ -60,6 +63,7 @@ class EnemyBullet(Bullet):
             if self.count == move1_count:
                 self.movement_x = self.movement_y = 0
             elif self.count == move1_count + stop_count:
+                print("POP")
                 self.movement_x = math.cos(math.radians(angle))
                 self.movement_y = math.sin(math.radians(angle))
                 self.speed = speed
@@ -80,12 +84,14 @@ class EnemyBullet(Bullet):
 
     def pattern3(self, angle, start_count):
         while True:
+            # print(self.count, start_count)
             if self.count == start_count:
+                # print("mom")
                 self.movement_x = math.cos(math.radians(angle))
                 self.movement_y = math.sin(math.radians(angle))
                 break
 
-            yield None
+            yield
 
 class PlayerBullet(Bullet):
 

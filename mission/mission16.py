@@ -7,7 +7,7 @@ class Mission16(mission.Mission):
 
     def __init__(self):
         print("Mission16")
-        self.enemy = enemy16.Enemy16(pyxel.width / 2, 40, 16, 16, 300, 8)
+        self.enemy = enemy16.Enemy16(pyxel.width / 2, 80, 16, 16, 400, 8)
         super().__init__()
 
     def update(self):
