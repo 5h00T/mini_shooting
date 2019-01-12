@@ -1,4 +1,4 @@
-import enemy
+from enemy import enemy
 import math
 
 

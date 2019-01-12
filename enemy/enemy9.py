@@ -1,5 +1,4 @@
-import random
-import enemy
+from enemy import enemy
 import math
 import player
 import numpy as np

@@ -1,4 +1,4 @@
-import enemy8
+from enemy import enemy8
 import pyxel
 from . import mission
 

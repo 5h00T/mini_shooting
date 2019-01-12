@@ -8,6 +8,13 @@ from mission import mission7
 from mission import mission8
 from mission import mission9
 from mission import mission10
+from mission import mission11
+from mission import mission12
+from mission import mission13
+from mission import mission14
+from mission import mission15
+from mission import mission16
+from mission import mission17
 
 
 missions = {
@@ -21,4 +28,11 @@ missions = {
     "8": mission8.Mission8,
     "9": mission9.Mission9,
     "10": mission10.Mission10,
+    "11": mission11.Mission11,
+    "12": mission12.Mission12,
+    "13": mission13.Mission13,
+    "14": mission14.Mission14,
+    "15": mission15.Mission15,
+    "16": mission16.Mission16,
+    "17": mission17.Mission17,
 }

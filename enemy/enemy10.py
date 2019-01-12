@@ -1,8 +1,6 @@
 import random
-import enemy
+from enemy import enemy
 import math
-import player
-import numpy as np
 
 
 class Enemy10(enemy.Enemy):
@@ -21,7 +19,7 @@ class Enemy10(enemy.Enemy):
 
         for bit in self.bits:
             if bit.is_active and bit.count % 90 == 0:
-                bit.shot_position.pattern5(1, 0, 5, 0.7, 0.2)
+                bit.shot_position.pattern5(1, 0, 5, 1.9, 0.2)
 
         if self.count % 80 == 0 and len(self.bits) < 4:
             self.bits.append(enemy.Bit(self.x, self.y, 10, 10, 0, 0, 9, 4, {
@@ -36,7 +34,7 @@ class Enemy10(enemy.Enemy):
                 self.shot_count = 0
                 self.main_shot_target_position = \
                     max(min(random.randint(self.main_shot_target_position - 10, self.main_shot_target_position + 10),
-                            120), -60)
+                            105), 75)
 
     def draw(self):
         super().draw()

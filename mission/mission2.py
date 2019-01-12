@@ -1,6 +1,5 @@
-import enemy2
+from enemy import enemy2
 import pyxel
-import player
 from . import mission
 
 class Mission2(mission.Mission):
