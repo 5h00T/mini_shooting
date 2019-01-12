@@ -25,8 +25,11 @@ class Enemy16(enemy.Enemy):
             for i in range(14):
                 self.shot_positions[0].pattern14(10, shot_angle-i*1.5, -40.0-i*2, 0.1+i*0.06, 0, 80, 25+i*3, 0.02, 0.001, 4)
 
-        if self.hp < 320 and self.count % 20 == 0:
-            self.shot_positions[0].pattern3(12, 30, 1.5)
+        if self.hp < 320 and self.count % 60 == 0:
+            self.shot_positions[0].pattern3(8, 45, 1.5)
+
+        if self.hp < 130 and self.count % 30 == 0:
+            self.shot_positions[0].pattern7(12, random.randint(0, 360), 1.9)
 
         self.move_pattern1(0.5, 0.3, 1, 2, -math.pi / 2, self.count / 140)
 

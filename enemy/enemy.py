@@ -337,6 +337,20 @@ class ShotPosition():
 
             _angle += 360 / way
 
+    def pattern15(self, sigma, speed):
+        """
+        自機への角度を平均、標準偏差をsigmaのランダムにずらした弾を一発発射する
+        :param speed: 弾のスピード
+        :return:
+        """
+        player_x, player_y = player.Player.getPosition()
+        angle_to_player_degree = math.degrees(math.atan2(player_y - self.y, player_x - self.x))
+        angle = math.radians(random.gauss(angle_to_player_degree, sigma))
+        b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(angle),
+                                        math.sin(angle),speed, 0)
+        if b:
+            self.bullets.append(b)
+
 class Bit():
 
     def __init__(self, x, y, width, height, movement_x, movement_y, hp, color, const_parameter=None):
@@ -395,6 +409,21 @@ class Bit():
         """
         self.shot_position.x = self.x = self.movement_x * speed + self.x
         self.shot_position.y = self.y = self.movement_y * speed + self.y
+
+        self.view_start_x = self.x - self.width / 2
+        self.view_start_y = self.y - self.height / 2
+
+    def move_pattern3(self, position_x, position_y, count):
+        """
+
+        :param position_x:
+        :param position_y:
+        :param count:
+        :return:
+        """
+
+        self.shot_position.x = self.x = (position_x - self.x) / count + self.x
+        self.shot_position.y = self.y = (position_y - self.y) / count + self.y
 
         self.view_start_x = self.x - self.width / 2
         self.view_start_y = self.y - self.height / 2
