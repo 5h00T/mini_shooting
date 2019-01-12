@@ -65,8 +65,8 @@ class Enemy():
             if bit.is_active:
                 bit.x = A * math.cos(a * t) + bit.x
                 bit.y = B * math.sin(b * t + delta) + bit.y
-                bit.view_start_x = A * math.cos(a * t) + bit.view_start_x
-                bit.view_start_y = B * math.sin(b * t + delta) + bit.view_start_y
+                bit.view_start_x = bit.x - bit.width / 2
+                bit.view_start_y = bit.y - bit.height / 2
                 bit.shot_position.x = A * math.cos(a * t) + bit.shot_position.x
                 bit.shot_position.y = B * math.sin(b * t + delta) + bit.shot_position.y
 
@@ -368,10 +368,20 @@ class Bit():
         self.view_start_y = self.y - self.height / 2
         self.shot_position = ShotPosition(self.x, self.y)
         self.is_active = True
+        self.move_functions = []
 
     def update(self):
         self.count += 1
         self.shot_position.update()
+
+        for move_function in self.move_functions:
+            # print("O")
+            if move_function is not None:
+                # print("A")
+                try:
+                    next(move_function)
+                except StopIteration:
+                    self.move_functions.remove(move_function)
 
         if self.x < -10 or self.x > pyxel.width + 10 or self.y < 0 - 10 or self.y > pyxel.height + 10:
             self.is_active = False
@@ -383,7 +393,10 @@ class Bit():
 
         self.shot_position.draw()
 
-    def move_pattern1(self, A, B, a, b, delta, t):
+    def set_move_function(self, move_function):
+        self.move_functions.append(move_function)
+
+    def move_pattern1(self, A, B, a, b, delta, speed, start_count=0, end_count=math.inf):
         """
         x = A cos(at)
         y = B sin(bt+delta)
@@ -395,25 +408,45 @@ class Bit():
         :param t:
         :return:
         """
-        self.shot_position.x = self.x = A * math.cos(a * t) + self.x
-        self.shot_position.y = self.y = B * math.sin(b * t + delta) + self.y
 
-        self.view_start_x = self.x - self.width / 2
-        self.view_start_y = self.y - self.height / 2
+        count = 0
+        while True:
+            if count >= start_count:
+                self.shot_position.x = self.x = A * math.cos(a * count * speed) + self.x
+                self.shot_position.y = self.y = B * math.sin(b * count * speed + delta) + self.y
 
-    def move_pattern2(self, speed):
+                self.view_start_x = self.x - self.width / 2
+                self.view_start_y = self.y - self.height / 2
+
+            if count >= end_count:
+                break
+
+            count += 1
+            yield
+
+    def move_pattern2(self, speed, start_count=0, end_count=math.inf):
         """
         movementの向きに従って移動
         :param speed:
         :return:
         """
-        self.shot_position.x = self.x = self.movement_x * speed + self.x
-        self.shot_position.y = self.y = self.movement_y * speed + self.y
 
-        self.view_start_x = self.x - self.width / 2
-        self.view_start_y = self.y - self.height / 2
+        count = 0
+        while True:
+            if count >= start_count:
+                self.shot_position.x = self.x = self.movement_x * speed + self.x
+                self.shot_position.y = self.y = self.movement_y * speed + self.y
 
-    def move_pattern3(self, position_x, position_y, count):
+                self.view_start_x = self.x - self.width / 2
+                self.view_start_y = self.y - self.height / 2
+
+            if count >= end_count:
+                break
+
+            count += 1
+            yield
+
+    def move_pattern3(self, start_position_x, start_position_y, target_position_x, target_position_y, start_count, end_count):
         """
 
         :param position_x:
@@ -422,8 +455,13 @@ class Bit():
         :return:
         """
 
-        self.shot_position.x = self.x = (position_x - self.x) / count + self.x
-        self.shot_position.y = self.y = (position_y - self.y) / count + self.y
+        count = 0
+        while count < end_count:
+            self.shot_position.x = self.x = (target_position_x - start_position_x) / end_count + self.x
+            self.shot_position.y = self.y = (target_position_y - start_position_y) / end_count + self.y
 
-        self.view_start_x = self.x - self.width / 2
-        self.view_start_y = self.y - self.height / 2
+            self.view_start_x = self.x - self.width / 2
+            self.view_start_y = self.y - self.height / 2
+
+            count += 1
+            yield

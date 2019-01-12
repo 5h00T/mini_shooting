@@ -25,19 +25,20 @@ class Enemy17(enemy.Enemy):
             for i in self.bit_formation.keys():
                 print(self.bit_formation[i]["bit_object"])
                 if self.bit_formation[i]["bit_object"] is None:
-                    bit = enemy.Bit(self.x, self.y, 15, 15, 0, 0, 50, 12, {"x": self.bit_formation[i]["x"],
-                                                                           "y": self.bit_formation[i]["y"]})
+                    bit = enemy.Bit(self.x, self.y, 15, 15, 0, 0, 50, 12, {"x": self.x + (int(i) - 2) * 50,
+                                                                           "y": self.y + 50})
+                    bit.set_move_function(bit.move_pattern3(bit.x, bit.y, bit.const_parameter["x"], bit.const_parameter["y"], 0, 60))
                     self.bits.append(bit)
                     self.bit_formation[i]["bit_object"] = bit
                     break
                 elif self.bit_formation[i]["bit_object"].is_active is False:
                     self.bit_formation[i]["bit_object"] = None
 
-        for bit in self.bits:
-            if bit.is_active:
-                bit.move_pattern3(bit.const_parameter["x"], bit.const_parameter["y"], 60)
+        self.move_pattern1(0.3, 0.3, 1, 2, -math.pi / 2, self.count / 140)
 
-        # self.move_pattern1(0.5, 0.3, 1, 2, -math.pi / 2, self.count / 140)
+        if self.count > 300:
+            # self.move_pattern1(0.3, 0.3, 1, 2, -math.pi / 2, self.count / 140)
+            pass
 
     def draw(self):
         super().draw()

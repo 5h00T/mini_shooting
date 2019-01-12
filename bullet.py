@@ -77,7 +77,7 @@ class EnemyBullet(Bullet):
                 self.speed += a
                 if not (min_speed < self.speed < max_speed):
                     break
-            elif self.count > end_count:
+            if self.count > end_count:
                 break
 
             yield None

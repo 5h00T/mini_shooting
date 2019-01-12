@@ -12,19 +12,18 @@ class Enemy10(enemy.Enemy):
 
     def update(self):
         super().update()
-        for bit in self.bits:
-            if bit.is_active:
-                bit.move_pattern1(bit.const_parameter["direction"] * 2, 1, 2, 3, math.pi / 2,
-                                  self.count / bit.const_parameter["move_speed"])
 
         for bit in self.bits:
             if bit.is_active and bit.count % 90 == 0:
                 bit.shot_position.pattern5(1, 0, 5, 1.9, 0.2)
 
         if self.count % 80 == 0 and len(self.bits) < 4:
-            self.bits.append(enemy.Bit(self.x, self.y, 10, 10, 0, 0, 9, 4, {
-                "move_speed": random.randint(20, 50),
-                "direction": 1 if random.random() > 0.5 else -1}))
+            bit = enemy.Bit(self.x, self.y, 10, 10, 0, 0, 9, 4, {
+                "move_speed": random.uniform(0.01, 0.05),
+                "direction": 1 if random.random() > 0.5 else -1})
+            self.bits.append(bit)
+            bit.set_move_function(bit.move_pattern1(bit.const_parameter["direction"] * 2, 1, 2, 3, math.pi / 2,
+                                                    bit.const_parameter["move_speed"], 60, math.inf))
 
         if self.count % 5 == 0:
             self.shot_count += 1
