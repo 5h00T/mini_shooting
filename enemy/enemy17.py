@@ -10,15 +10,15 @@ class Enemy17(enemy.Enemy):
         self.shot_positions.append(enemy.ShotPosition(self.x, self.y))
         self.bullet_speed = 1.5
         self.shot_count = 0
-        self.bit_formation = {"1": {"x": self.x + 50, "y": self.y + 50, "bit_object": None},
+        self.bit_formation = {"1": {"x": self.x, "y": self.y + 50, "bit_object": None},
                               "2": {"x": self.x - 50, "y": self.y + 50, "bit_object": None},
-                              "3": {"x": self.x, "y": self.y + 50, "bit_object": None}}
+                              "3": {"x": self.x + 50, "y": self.y + 50, "bit_object": None}}
 
     def update(self):
         super().update()
 
-        if self.count % 10 == 0 and len(self.bits) < 3:
-            self.shot_positions[0].pattern15(sigma=18, speed=1.7)
+        if self.count % 9 == 0 and len(self.bits) < 3:
+            self.shot_positions[0].pattern15(sigma=15, speed=1.8)
 
         print(len(self.bits))
         if self.count % 180 == 0 and len(self.bits) < 3:
@@ -48,7 +48,7 @@ class Enemy17(enemy.Enemy):
             elif bit.const_parameter["attack_pattern"] == 3:
                 self.bit_attack_pattern3(bit)
 
-        self.move_pattern1(0.3, 0.3, 1, 2, -math.pi / 2, self.count / 140)
+        self.move_pattern1(0.3, 0.2, 1, 6, math.pi / 2, self.count / 90)
 
         if self.count > 300:
             # self.move_pattern1(0.3, 0.3, 1, 2, -math.pi / 2, self.count / 140)
