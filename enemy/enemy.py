@@ -351,6 +351,32 @@ class ShotPosition():
         if b:
             self.bullets.append(b)
 
+    def pattern16(self, way, angle, delta_angle, num, speed, delta_speed):
+        """
+        angle度間隔が開いた自機狙いway弾をdelta_angleずつずらし、num発delta_speedずつ速度を増やしながら発射する
+        :param way: way数
+        :param angle: 弾の間の角度
+        :param num: 連数
+        :param speed: 弾のスピード
+        :param delta_speed: 連毎に増やす速度
+        :return:
+        """
+
+        player_x, player_y = player.Player.getPosition()
+        angle_to_player = math.atan2(player_y - self.y, player_x - self.x)
+        degree_angle_to_player = math.degrees(angle_to_player) + delta_angle
+        _angle = degree_angle_to_player - way * angle / 2 + angle / 2
+        for i in range(way):
+            _speed = speed
+            for j in range(num):
+                b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(math.radians(_angle)),
+                                                math.sin(math.radians(_angle)), _speed, 0)
+                if b:
+                    self.bullets.append(b)
+
+                _speed += delta_speed
+            _angle += angle
+
 class Bit():
 
     def __init__(self, x, y, width, height, movement_x, movement_y, hp, color, const_parameter=None):
