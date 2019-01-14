@@ -12,6 +12,7 @@ class Enemy13(enemy.Enemy):
         self.shot_count = 0
         self.start_angle = 0
         self.delta_angle2 = 60
+        self.move_functions.append(self.move_pattern1(2, 1.4, 2, 5, -math.pi / 2, 0.04))
 
     def update(self):
         super().update()
@@ -27,8 +28,6 @@ class Enemy13(enemy.Enemy):
             target_angle = random.randint(0, 360)
             self.shot_positions[1].pattern7(3, target_angle, 1.2)
             self.shot_positions[2].pattern7(3, target_angle, 1.2)
-
-        self.move_pattern1(2, 1.4, 2, 5, -math.pi / 2, self.count / 30)
 
     def draw(self):
         super().draw()

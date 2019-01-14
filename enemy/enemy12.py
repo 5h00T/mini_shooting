@@ -10,6 +10,7 @@ class Enemy12(enemy.Enemy):
         self.shot_count = 0
         self.start_angle = 0
         self.delta_angle2 = 60
+        self.move_functions.append(self.move_pattern1(0.5, 0.4, 2, 3, -math.pi / 2, 0.02, 0, math.inf))
 
     def update(self):
         super().update()
@@ -24,8 +25,6 @@ class Enemy12(enemy.Enemy):
             self.start_angle += -8 - self.shot_count*0.3 if self.delta_angle2 >= 0 else 8 + self.shot_count * 0.3
             self.delta_angle2 += 3 - self.shot_count*0.1 if self.delta_angle2 > 0 else -3 + self.shot_count*0.1
             self.shot_count += 1
-
-        self.move_pattern1(0.4, 0.3, 2, 3, -math.pi / 2, self.count / 30)
 
     def draw(self):
         super().draw()

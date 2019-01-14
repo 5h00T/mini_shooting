@@ -10,6 +10,7 @@ class Enemy6(enemy.Enemy):
         self.shot_positions.append(enemy.ShotPosition(self.x - 20, self.y))
         self.shot_positions.append(enemy.ShotPosition(self.x + 20, self.y))
         self.shot_positions.append(enemy.ShotPosition(self.x, self.y))
+        self.move_functions.append(self.move_pattern1(0.5, 0.9, 1, 2, math.pi / 2, 0.04))
 
     def update(self):
         super().update()
@@ -19,8 +20,6 @@ class Enemy6(enemy.Enemy):
 
         if self.count % 5 == 0:
             self.shot_positions[2].pattern1(random.uniform(0, 360), 0.8)
-
-        self.move_pattern1(0.5, 0.9, 1, 2, math.pi / 2, self.count / 30)
 
     def draw(self):
         super().draw()

@@ -4,12 +4,12 @@ import pyxel
 import math
 
 
-class Enemy16(enemy.Enemy):
+class Enemy18(enemy.Enemy):
     def __init__(self, x, y, width, height, hp, color):
         super().__init__(x, y, width, height, hp, color)
         self.shot_positions.append(enemy.ShotPosition(self.x, self.y))
         self.bullet_speed = 1.5
-        self.move_functions.append(self.move_pattern1(0.4, 0.4, 1, 2, -math.pi / 2, 0.005))
+        self.move_functions.append(self.move_pattern1(0.5, 0.3, 1, 2, -math.pi / 2, 0.05, 0, math.inf))
 
     def update(self):
         super().update()

@@ -18,10 +18,20 @@ class Enemy():
         self.view_start_y = self.y - self.height / 2
         self.shot_positions = []
         self.bits = []
+        self.move_functions = []
         self.standard_position = self.x
 
     def update(self):
         self.count += 1
+
+        for move_function in self.move_functions:
+            # print("O")
+            if move_function is not None:
+                # print("A")
+                try:
+                    next(move_function)
+                except StopIteration:
+                    self.move_functions.remove(move_function)
 
         for shot_position in self.shot_positions:
             shot_position.update()
@@ -42,7 +52,10 @@ class Enemy():
         for shot_position in self.shot_positions:
             shot_position.draw()
 
-    def move_pattern1(self, A, B, a, b, delta, t):
+    def set_move_function(self, move_function):
+        self.move_functions.append(move_function)
+
+    def move_pattern1(self, A, B, a, b, delta, speed, start_count=0, end_count=math.inf):
         """
         x = A cos(at)
         y = B sin(bt+delta)
@@ -54,25 +67,34 @@ class Enemy():
         :param t:
         :return:
         """
-        self.x = A * math.cos(a * t) + self.x
-        self.y = B * math.sin(b * t + delta) + self.y
+        count = 0
 
-        for shot_position in self.shot_positions:
-            shot_position.x = A * math.cos(a * t) + shot_position.x
-            shot_position.y = B * math.sin(b * t + delta) + shot_position.y
+        while True:
+            if count >= start_count:
+                self.x = A * math.cos(a * count * speed) + self.x
+                self.y = B * math.sin(b * count * speed + delta) + self.y
 
-        for bit in self.bits:
-            if bit.is_active:
-                bit.x = A * math.cos(a * t) + bit.x
-                bit.y = B * math.sin(b * t + delta) + bit.y
-                bit.view_start_x = bit.x - bit.width / 2
-                bit.view_start_y = bit.y - bit.height / 2
-                bit.shot_position.x = A * math.cos(a * t) + bit.shot_position.x
-                bit.shot_position.y = B * math.sin(b * t + delta) + bit.shot_position.y
+                for shot_position in self.shot_positions:
+                    shot_position.x = A * math.cos(a * count * speed) + shot_position.x
+                    shot_position.y = B * math.sin(b * count * speed + delta) + shot_position.y
 
-        self.view_start_x = self.x - self.width / 2
-        self.view_start_y = self.y - self.height / 2
+                for bit in self.bits:
+                    if bit.is_active:
+                        bit.x = A * math.cos(a * count * speed) + bit.x
+                        bit.y = B * math.sin(b * count * speed + delta) + bit.y
+                        bit.view_start_x = bit.x - bit.width / 2
+                        bit.view_start_y = bit.y - bit.height / 2
+                        bit.shot_position.x = A * math.cos(a * count * speed) + bit.shot_position.x
+                        bit.shot_position.y = B * math.sin(b * count * speed + delta) + bit.shot_position.y
 
+                self.view_start_x = self.x - self.width / 2
+                self.view_start_y = self.y - self.height / 2
+
+            count += 1
+            yield
+
+            if count >= end_count:
+                break
 
 class ShotPosition():
 
