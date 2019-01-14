@@ -20,14 +20,13 @@ class Enemy13(enemy.Enemy):
         if self.count % 140 == 0:
             self.shot_count = 0
 
-        if self.count % 5 == 0 and self.shot_count < 5:
-            self.shot_positions[0].pattern10(3, 18, 90, 1.9)
-            self.shot_count += 1
+        if self.count % 60 == 0:
+            self.set_shot_function(self.shot_positions[0].pattern10(3, 18, 90, 1.9, 5, 0, 25))
 
         if self.count % 14 == 0:
             target_angle = random.randint(0, 360)
-            self.shot_positions[1].pattern7(3, target_angle, 1.2)
-            self.shot_positions[2].pattern7(3, target_angle, 1.2)
+            self.set_shot_function(self.shot_positions[1].pattern7(3, target_angle, 1.2, 1, 0, 1))
+            self.set_shot_function(self.shot_positions[2].pattern7(3, target_angle, 1.2, 1, 0, 1))
 
     def draw(self):
         super().draw()
