@@ -570,23 +570,24 @@ class ShotPosition():
             count += 1
             yield
 
-    def pattern19(self, angle, speed, interval_count, start_count=0, end_count=math.inf, bullet_angle_function=None):
+    def pattern19(self, angle, speed, interval_count, start_count=0, end_count=math.inf, bullet_change_interval=1, bullet_change_start_count=0, bullet_change_end_count=math.inf, angle_function=None, bullet_angle_function=None):
         """
         angle度の方向に一発発射する
         :param angle: 角度
         :return:
         """
         count = 0
+        _angle = angle
         while count < end_count:
             if count >= start_count:
                 if count % interval_count == 0:
-                    _angle = angle
-
+                    if angle_function is not None:
+                        _angle = _angle + angle_function(count)
                     b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(math.radians(_angle)),
                                                     math.sin(math.radians(_angle)), speed, 0)
                     if b:
                         self.bullets.append(b)
-                        b.set_move_function(b.pattern4(bullet_angle_function, 1, 0, math.inf))
+                        b.set_move_function(b.pattern4(bullet_angle_function if bullet_angle_function else lambda count: 0, bullet_change_interval, bullet_change_start_count, bullet_change_end_count))
 
             count += 1
             yield

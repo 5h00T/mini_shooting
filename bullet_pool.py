@@ -15,6 +15,7 @@ class EnemyBulletPool():
         for i in range(MAX_BULLET_NUM):
             if not cls.bullet_pool[i].is_active:
                 cls.bullet_pool[i].is_active = True
+                cls.bullet_pool[i].count = 0
                 cls.bullet_pool[i].radius = radius
                 cls.bullet_pool[i].x = x
                 cls.bullet_pool[i].y = y
@@ -38,12 +39,10 @@ class EnemyBulletPool():
         return count
 
     @classmethod
-    def all_clear_bullet(cls):
+    def all_reset_bullet(cls):
         for b in cls.bullet_pool:
             b.is_active = False
-            b.movement_x = b.movement_y = b.speed = 0
             b.move_functions.clear()
-            b.count = 0
 
 
 class PlayerBulletPool():

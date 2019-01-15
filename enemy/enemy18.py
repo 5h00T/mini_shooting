@@ -50,13 +50,13 @@ class Enemy18(enemy.Enemy):
                 self.move_functions.clear()
                 self.pattern3_init = True
 
-            if self.shot_count % 20 == 0:
+            if self.shot_count % 140 == 0:
                 for angle in range(70, 430, 40):
                     bit = enemy.Bit(self.x, self.y, 10, 10, math.cos(math.radians(angle)), math.sin(math.radians(angle)), 15, 4, {
                         "first_bullet_angle": random.randint(0, 360)
                     })
                     bit.set_move_function(bit.move_pattern2(2.2))
-                    bit.set_shot_function(bit.shot_position.pattern14(1, bit.const_parameter["first_bullet_angle"], 0, 0, 0.1, 60, 60, 0.02, -1, math.inf, 4, 0, math.inf, lambda count: count * 2))
+                    bit.set_shot_function(bit.shot_position.pattern14(1, bit.const_parameter["first_bullet_angle"], 0, 0, 0.1, 60, 60, 0.02, -1, math.inf, 4, 0, math.inf, lambda count: math.sin(count/60) * 3))
                     self.bits.append(bit)
 
         self.shot_count += 1

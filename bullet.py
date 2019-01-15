@@ -98,8 +98,8 @@ class EnemyBullet(Bullet):
             if count >= start_count:
                 if (start_count + count) % interval_count == 0:
                     angle = math.degrees(math.atan2(self.movement_y, self.movement_x))
-                    self.movement_x = math.cos(math.radians(angle + 0.5))
-                    self.movement_y = math.sin(math.radians(angle + 0.5))
+                    self.movement_x = math.cos(math.radians(angle + bullet_angle_function(count)))
+                    self.movement_y = math.sin(math.radians(angle + bullet_angle_function(count)))
 
             count += 1
             yield

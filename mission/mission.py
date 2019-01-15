@@ -23,11 +23,11 @@ class Mission():
             self.after_clear_time += 1
 
         if self.after_clear_time == 180:
-            self.bullet_pool.all_clear_bullet()
+            self.bullet_pool.all_reset_bullet()
             self.return_value = Scene.MISSION_SELECT
 
         if pyxel.btn(pyxel.KEY_Q) and not self.is_clear:
-            self.bullet_pool.all_clear_bullet()
+            self.bullet_pool.all_reset_bullet()
             self.return_value = Scene.MISSION_SELECT
 
         print(self.bullet_pool.get_active_bullet_num())
