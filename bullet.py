@@ -93,6 +93,18 @@ class EnemyBullet(Bullet):
 
             yield
 
+    def pattern4(self, bullet_angle_function, interval_count, start_count=0, end_count=math.inf):
+        count = 0
+        while count < end_count:
+            if count >= start_count:
+                if (start_count + count) % interval_count == 0:
+                    angle = math.degrees(math.atan2(self.movement_y, self.movement_x))
+                    self.movement_x = math.cos(math.radians(angle + 0.5))
+                    self.movement_y = math.sin(math.radians(angle + 0.5))
+
+            count += 1
+            yield
+
 class PlayerBullet(Bullet):
 
     def __init__(self, radius, x, y, movement_x, movement_y, speed, color):

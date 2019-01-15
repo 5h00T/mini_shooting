@@ -31,6 +31,9 @@ class Mission():
         self.player.draw()
         if not self.is_clear:
             self.enemy.draw()
+            for bit in self.enemy.bits:
+                bit.shot_position.draw()
+
             pyxel.line(10, 10, 170 * self.enemy.hp / self.enemy_max_hp + 10, 10, 13)
 
         if self.is_clear:

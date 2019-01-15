@@ -21,6 +21,7 @@ class EnemyBulletPool():
                 self.bullet_pool[i].movement_y = movement_y
                 self.bullet_pool[i].speed = speed
                 self.bullet_pool[i].color = color
+                self.bullet_pool[i].move_functions.clear()
 
                 return self.bullet_pool[i]
 

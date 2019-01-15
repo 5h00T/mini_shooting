@@ -6,7 +6,7 @@ import random
 
 
 class Enemy():
-    def __init__(self, x, y, width, height, hp,color):
+    def __init__(self, x, y, width, height, hp, color):
         self.x = x
         self.y = y
         self.width = width
@@ -21,24 +21,19 @@ class Enemy():
         self.move_functions = []
         # self.shot_functions = {}
         self.shot_functions = []
-        self.standard_position = self.x
 
     def update(self):
         self.count += 1
 
         for move_function in self.move_functions:
-            # print("O")
             if move_function is not None:
-                # print("A")
                 try:
                     next(move_function)
                 except StopIteration:
                     self.move_functions.remove(move_function)
 
         for shot_function in self.shot_functions:
-            # print("O")
             if shot_function is not None:
-                # print("A")
                 try:
                     next(shot_function)
                 except StopIteration:
@@ -127,7 +122,7 @@ class ShotPosition():
         self.x = x
         self.y = y
         self.bullets = []
-        self.bullet_pool = bullet_pool.EnemyBulletPool(400)
+        self.bullet_pool = bullet_pool.EnemyBulletPool(250)
 
     def update(self):
         print("bullets", len(self.bullets))
@@ -575,23 +570,39 @@ class ShotPosition():
             count += 1
             yield
 
-class Bit():
+    def pattern19(self, angle, speed, interval_count, start_count=0, end_count=math.inf, bullet_angle_function=None):
+        """
+        angle度の方向に一発発射する
+        :param angle: 角度
+        :return:
+        """
+        count = 0
+        while count < end_count:
+            if count >= start_count:
+                if count % interval_count == 0:
+                    _angle = angle
+
+                    b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(math.radians(_angle)),
+                                                    math.sin(math.radians(_angle)), speed, 0)
+                    if b:
+                        self.bullets.append(b)
+                        b.set_move_function(b.pattern4(bullet_angle_function, 1, 0, math.inf))
+
+            count += 1
+            yield
+
+class Bit(Enemy):
 
     def __init__(self, x, y, width, height, movement_x, movement_y, hp, color, const_parameter=None):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.movement_x = movement_x
-        self.movement_y = movement_y
-        self.hp = hp
-        self.color = color
+        super().__init__(x, y, width, height, hp, color)
         self.count = 0
         self.const_parameter = const_parameter
         self.view_start_x = self.x - self.width / 2
         self.view_start_y = self.y - self.height / 2
         self.shot_position = ShotPosition(self.x, self.y)
         self.is_active = True
+        self.movement_x = movement_x
+        self.movement_y = movement_y
         self.move_functions = []
         self.shot_functions = []
 
@@ -601,18 +612,14 @@ class Bit():
 
         if self.is_active:
             for move_function in self.move_functions:
-                # print("O")
                 if move_function is not None:
-                    # print("A")
                     try:
                         next(move_function)
                     except StopIteration:
                         self.move_functions.remove(move_function)
 
             for shot_function in self.shot_functions:
-                # print("O")
                 if shot_function is not None:
-                    # print("A")
                     try:
                         next(shot_function)
                     except StopIteration:
@@ -626,7 +633,7 @@ class Bit():
             pyxel.rect(self.view_start_x, self.view_start_y, self.view_start_x + self.width,
                    self.view_start_y + self.height, self.color)
 
-        self.shot_position.draw()
+        # self.shot_position.draw()
 
     def set_move_function(self, move_function):
         self.move_functions.append(move_function)

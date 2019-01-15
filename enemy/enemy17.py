@@ -67,9 +67,9 @@ class Enemy17(enemy.Enemy):
         angle = random.randint(0, 360)
         angle_function = lambda count: angle
         bit.set_shot_function(
-            bit.shot_position.pattern14(18, 0, 0, 1, 0.8, 60, 50, 0, 0, math.inf, 70, 120, math.inf, angle_function))
+            bit.shot_position.pattern14(18, 0, 0, 1, 0.8, 60, 50, 0, 0, math.inf, 130, 120, math.inf, angle_function))
         bit.set_shot_function(
-            bit.shot_position.pattern14(18, 10, 0, 1, 0.6, 60, 50, 0, 0, math.inf, 70, 120, math.inf, angle_function))
+            bit.shot_position.pattern14(18, 10, 0, 1, 0.6, 60, 50, 0, 0, math.inf, 130, 120, math.inf, angle_function))
 
     def bit_attack_pattern3(self, bit):
         bit.set_shot_function(bit.shot_position.pattern3(1, 0, 1.8, 140, 130))

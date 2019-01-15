@@ -8,10 +8,6 @@ class Enemy18(enemy.Enemy):
     def __init__(self, x, y, width, height, hp, color):
         super().__init__(x, y, width, height, hp, color)
         self.shot_positions.append(enemy.ShotPosition(self.x, self.y))
-        self.shot_positions.append(enemy.ShotPosition(self.x+10, self.y+10))
-        self.shot_positions.append(enemy.ShotPosition(self.x+10, self.y-10))
-        self.shot_positions.append(enemy.ShotPosition(self.x-10, self.y+10))
-        self.shot_positions.append(enemy.ShotPosition(self.x-10, self.y-10))
 
         self.bullet_speed = 1.5
         self.shot_count = 0
