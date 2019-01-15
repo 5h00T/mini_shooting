@@ -63,7 +63,6 @@ class EnemyBullet(Bullet):
             if self.count == move1_count:
                 self.movement_x = self.movement_y = 0
             elif self.count == move1_count + stop_count:
-                print("POP")
                 self.movement_x = math.cos(math.radians(angle))
                 self.movement_y = math.sin(math.radians(angle))
                 self.speed = speed
@@ -73,7 +72,7 @@ class EnemyBullet(Bullet):
 
     def pattern2(self, a, min_speed, max_speed, start_count, end_count):
         while True:
-            if self.count > start_count:
+            if self.count >= start_count:
                 self.speed += a
                 if not (min_speed < self.speed < max_speed):
                     break

@@ -122,10 +122,10 @@ class ShotPosition():
         self.x = x
         self.y = y
         self.bullets = []
-        self.bullet_pool = bullet_pool.EnemyBulletPool(250)
+        self.bullet_pool = bullet_pool.EnemyBulletPool
 
     def update(self):
-        print("bullets", len(self.bullets))
+        # print("bullets", len(self.bullets))
         for b in self.bullets:
             b.update()
             if not b.is_active:
