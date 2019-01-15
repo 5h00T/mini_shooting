@@ -20,8 +20,8 @@ class Enemy9(enemy.Enemy):
                 bit = enemy.Bit(self.x, self.y, 10, 10, math.cos(angle_to_player) * i,
                                            math.sin(angle_to_player) * i, 8, 4)
                 bit.set_move_function(bit.move_pattern2(2.3))
-                bit.set_shot_function(bit.shot_position.pattern1(0, 1.3, 50))
-                bit.set_shot_function(bit.shot_position.pattern1(180, 1.3, 50))
+                bit.set_shot_function(bit.shot_position.pattern1(0, 1.3, 50, 50))
+                bit.set_shot_function(bit.shot_position.pattern1(180, 1.3, 50, 50))
                 self.bits.append(bit)
 
     def draw(self):

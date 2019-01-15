@@ -18,7 +18,7 @@ class Enemy10(enemy.Enemy):
                 "move_speed": random.uniform(0.01, 0.05),
                 "direction": 1 if random.random() > 0.5 else -1})
             self.bits.append(bit)
-            bit.set_shot_function(bit.shot_position.pattern5(1, 0, 5, 1.9, 0.2, 90))
+            bit.set_shot_function(bit.shot_position.pattern5(1, 0, 5, 1.9, 0.2, 90, 60))
             bit.set_move_function(bit.move_pattern1(bit.const_parameter["direction"] * 2, 1, 2, 3, math.pi / 2,
                                                     bit.const_parameter["move_speed"], 60, math.inf))
 

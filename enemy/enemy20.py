@@ -28,11 +28,11 @@ class Enemy20(enemy.Enemy):
         if self.shot_count < 600 and self.pattern1_init is False:
             self.pattern1_init = True
             angle_function = lambda count: random.randint(0, 360)
-            self.set_shot_function(self.shot_positions[0].pattern18(0, 2.5, 2, 90, 600, angle_function))
-            self.set_shot_function(self.shot_positions[1].pattern18(0, 1.3, 4, 90, 600, angle_function))
-            self.set_shot_function(self.shot_positions[2].pattern18(0, 1.3, 4, 90, 600, angle_function))
-            self.set_shot_function(self.shot_positions[3].pattern18(0, 1.3, 4, 90, 600, angle_function))
-            self.set_shot_function(self.shot_positions[4].pattern18(0, 1.3, 4, 90, 600, angle_function))
+            self.set_shot_function(self.shot_positions[0].pattern18(0, 2.5, 3, 90, 600, angle_function))
+            self.set_shot_function(self.shot_positions[1].pattern18(0, 1.3, 5, 90, 600, angle_function))
+            self.set_shot_function(self.shot_positions[2].pattern18(0, 1.3, 5, 90, 600, angle_function))
+            self.set_shot_function(self.shot_positions[3].pattern18(0, 1.3, 5, 90, 600, angle_function))
+            self.set_shot_function(self.shot_positions[4].pattern18(0, 1.3, 5, 90, 600, angle_function))
         elif 670 < self.shot_count < 1300:
             if self.pattern2_init is False:
                 self.pattern2_init = True
@@ -67,41 +67,41 @@ class Enemy20(enemy.Enemy):
                 angle_function = lambda count: random.randint(0, 360)
                 angle = random.randint(0, 360)
                 self.set_shot_function(
-                    self.shot_positions[0].pattern14(5, angle, 0, 2, 1.6, 40, 50, 0, -1, math.inf, 30, 0, 800,
+                    self.shot_positions[0].pattern14(5, angle, 0, 2, 1.6, 40, 50, 0, -1, math.inf, 40, 0, 800,
                                                      angle_function))
 
                 self.set_shot_function(
-                    self.shot_positions[0].pattern14(5, angle + 36, 0, 2, 1.1, 40, 50, 0, -1, math.inf, 30, 0, 800,
+                    self.shot_positions[0].pattern14(5, angle + 36, 0, 2, 1.1, 40, 50, 0, -1, math.inf, 40, 0, 800,
                                                      angle_function))
                 angle = random.randint(0, 360)
                 self.set_shot_function(
-                    self.shot_positions[1].pattern14(5, angle, 0, 2, 1.6, 40, 50, 0, -1, math.inf, 30, 0, 800,
+                    self.shot_positions[1].pattern14(5, angle, 0, 2, 1.6, 40, 50, 0, -1, math.inf, 40, 0, 800,
                                                      angle_function))
 
                 self.set_shot_function(
-                    self.shot_positions[1].pattern14(5, angle + 36, 0, 2, 1.1, 40, 50, 0, -1, math.inf, 30, 0, 800,
+                    self.shot_positions[1].pattern14(5, angle + 36, 0, 2, 1.1, 40, 50, 0, -1, math.inf, 40, 0, 800,
                                                      angle_function))
                 angle = random.randint(0, 360)
                 self.set_shot_function(
-                    self.shot_positions[2].pattern14(5, angle, 0, 2, 1.6, 40, 50, 0, -1, math.inf, 30, 0, 800,
+                    self.shot_positions[2].pattern14(5, angle, 0, 2, 1.6, 40, 50, 0, -1, math.inf, 40, 0, 800,
                                                      angle_function))
 
                 self.set_shot_function(
-                    self.shot_positions[2].pattern14(5, angle + 36, 0, 2, 1.1, 40, 50, 0, -1, math.inf, 30, 0, 800,
+                    self.shot_positions[2].pattern14(5, angle + 36, 0, 2, 1.1, 40, 50, 0, -1, math.inf, 40, 0, 800,
                                                      angle_function))
                 angle = random.randint(0, 360)
                 self.set_shot_function(
-                    self.shot_positions[3].pattern14(5, angle, 0, 2, 1.6, 40, 50, 0, -1, math.inf, 30, 0, 800,
+                    self.shot_positions[3].pattern14(5, angle, 0, 2, 1.6, 40, 50, 0, -1, math.inf, 40, 0, 800,
                                                      angle_function))
                 self.set_shot_function(
-                    self.shot_positions[3].pattern14(5, angle + 36, 0, 2, 1.1, 40, 50, 0, -1, math.inf, 30, 0, 800,
+                    self.shot_positions[3].pattern14(5, angle + 36, 0, 2, 1.1, 40, 50, 0, -1, math.inf, 40, 0, 800,
                                                      angle_function))
                 angle = random.randint(0, 360)
                 self.set_shot_function(
-                    self.shot_positions[4].pattern14(5, angle, 0, 2, 1.6, 40, 50, 0, -1, math.inf, 30, 0, 800,
+                    self.shot_positions[4].pattern14(5, angle, 0, 2, 1.6, 40, 50, 0, -1, math.inf, 40, 0, 800,
                                                      angle_function))
                 self.set_shot_function(
-                    self.shot_positions[4].pattern14(5, angle + 36, 0, 2, 1.1, 40, 50, 0, -1, math.inf, 30, 0, 800,
+                    self.shot_positions[4].pattern14(5, angle + 36, 0, 2, 1.1, 40, 50, 0, -1, math.inf, 40, 0, 800,
                                                      angle_function))
         elif self.shot_count == 3000:
             self.set_move_function(self.move_pattern2(self.x, self.y, pyxel.width / 2, 70, 0, 50))

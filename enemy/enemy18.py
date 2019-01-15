@@ -23,12 +23,12 @@ class Enemy18(enemy.Enemy):
         if self.shot_count < 600 and self.pattern1_init is False:
             self.pattern1_init = True
             angle1_function = lambda count: count + 20
-            for i in range(4):
+            for i in range(3):
                 self.set_shot_function(
-                    self.shot_positions[0].pattern14(3, self.first_angle, 20, 0.8 + i * 0.5, 1.4, 50, 20, 0, 0, 9, 10, 0,
+                    self.shot_positions[0].pattern14(3, self.first_angle, 20, 0.8 + i * 0.5, 1.4, 50, 20, 0, 0, 9, 15, 0,
                                                      600, angle1_function))
                 self.set_shot_function(
-                    self.shot_positions[0].pattern14(3, self.first_angle, -20, 0.8 + i * 0.5, 1.4, 50, 20, 0, 0, 9, 10,
+                    self.shot_positions[0].pattern14(3, self.first_angle, -20, 0.8 + i * 0.5, 1.4, 50, 20, 0, 0, 9, 15,
                                                      0, 600, angle1_function))
         elif 650 < self.shot_count < 1300:
             if self.pattern2_init is False:
