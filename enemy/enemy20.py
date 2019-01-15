@@ -132,6 +132,11 @@ class Enemy20(enemy.Enemy):
                 self.shot_positions[4].pattern14(20, angle, 0, 1.3, 1.6, 40, 50, 0, -1, math.inf, 1, 0, 1))
             self.set_shot_function(
                 self.shot_positions[4].pattern14(20, angle + 9, 0, 1.3, 1.1, 40, 50, 0, -1, math.inf, 1, 0, 1))
+        elif self.shot_count == 3300:
+            self.shot_count = 0
+            self.pattern1_init = False
+            self.pattern2_init = False
+            self.pattern3_init = False
 
     def draw(self):
         super().draw()
