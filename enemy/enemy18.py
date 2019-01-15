@@ -50,7 +50,7 @@ class Enemy18(enemy.Enemy):
                 self.move_functions.clear()
                 self.pattern3_init = True
 
-            if self.shot_count % 120 == 0:
+            if self.shot_count % 20 == 0:
                 for angle in range(70, 430, 40):
                     bit = enemy.Bit(self.x, self.y, 10, 10, math.cos(math.radians(angle)), math.sin(math.radians(angle)), 15, 4, {
                         "first_bullet_angle": random.randint(0, 360)
