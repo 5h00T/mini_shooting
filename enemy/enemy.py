@@ -111,10 +111,50 @@ class Enemy():
                 self.view_start_y = self.y - self.height / 2
 
             count += 1
-            yield
 
             if count >= end_count:
                 break
+
+            yield
+
+    def move_pattern2(self, start_position_x, start_position_y, target_position_x, target_position_y, start_count, end_count):
+        """
+
+        :param position_x:
+        :param position_y:
+        :param count:
+        :return:
+        """
+
+        count = 0
+        while True:
+            if start_count <= count:
+                self.x = (target_position_x - start_position_x) / end_count + self.x
+                self.y = (target_position_y - start_position_y) / end_count + self.y
+
+                for shot_position in self.shot_positions:
+                    shot_position.x = (target_position_x - start_position_x) / end_count + shot_position.x
+                    shot_position.y = (target_position_y - start_position_y) / end_count + shot_position.y
+
+                for bit in self.bits:
+                    if bit.is_active:
+                        bit.x = (target_position_x - start_position_x) / end_count + bit.x
+                        bit.y = (target_position_y - start_position_y) / end_count + bit.y
+                        bit.view_start_x = bit.x - bit.width / 2
+                        bit.view_start_y = bit.y - bit.height / 2
+                        bit.shot_position.x = (target_position_x - start_position_x) / end_count + bit.shot_position.x
+                        bit.shot_position.y = (target_position_y - start_position_y) / end_count + bit.shot_position.y
+
+                self.view_start_x = self.x - self.width / 2
+                self.view_start_y = self.y - self.height / 2
+
+            count += 1
+
+            if count >= end_count:
+                break
+
+            yield
+
 
 class ShotPosition():
 
@@ -550,7 +590,7 @@ class ShotPosition():
 
     def pattern18(self, start_angle, speed, interval_count, start_count=0, end_count=math.inf, angle_function=None):
         """
-
+        発射角度をangle_functionによって決める
         :param angle: 角度
         :return:
         """
@@ -606,10 +646,21 @@ class Bit(Enemy):
         self.movement_y = movement_y
         self.move_functions = []
         self.shot_functions = []
+        self.return_shot_functions = []
+        self.is_shooted_return_shot = False
 
     def update(self):
         self.count += 1
         self.shot_position.update()
+
+        if self.hp <= 0 and not self.is_shooted_return_shot:
+            self.is_shooted_return_shot = True
+            for return_shot_function in self.return_shot_functions:
+                if return_shot_function is not None:
+                    try:
+                        next(return_shot_function)
+                    except StopIteration:
+                        self.return_shot_functions.remove(return_shot_function)
 
         if self.is_active:
             for move_function in self.move_functions:
@@ -641,6 +692,9 @@ class Bit(Enemy):
 
     def set_shot_function(self, shot_function):
         self.shot_functions.append(shot_function)
+
+    def set_return_shot(self, shot_function):
+        self.return_shot_functions.append(shot_function)
 
     def move_pattern1(self, A, B, a, b, delta, speed, start_count=0, end_count=math.inf):
         """
