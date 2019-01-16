@@ -8,7 +8,9 @@ class MissionSelect():
         print("MissionSelect")
         self.cursor = cursor_position
         self.missions = ["mission" + i for i in missions.missions.keys()]
-        self.menu_item = ["MissionSelect", "Settings", "Exit"]
+        self.mission_recode = [i for i in open("score.txt").readlines()]
+        self.recode_list = ["0", "0", "0", "0"]
+        self.menu_item = ["MissionSelect", "Exit"]
         self.is_active = True
 
     def update(self):
@@ -17,11 +19,12 @@ class MissionSelect():
         elif pyxel.btnp(pyxel.KEY_DOWN, 30, 20):
             self.cursor = min(len(self.missions), self.cursor + 1)
 
+        self.recode_list = self.mission_recode[self.cursor].split(",")
+
         if pyxel.btnp(pyxel.KEY_Z, 10, 10):
-            print(self.cursor)
             for mission_number in range(1, len(self.missions) + 1):
                 if self.cursor == mission_number:
-                    return Scene.MISSION, mission_number
+                    return Scene.MISSION, mission_number, int(self.recode_list[2]), int(self.recode_list[3])
 
         if pyxel.btn(pyxel.KEY_X):
             return Scene.MENU, 0
@@ -42,3 +45,6 @@ class MissionSelect():
             else:
                 pyxel.text(67 + abs(self.cursor - i-1) ** 1.1 * 5,
                            120 - (self.cursor - i) * 10 + 10, self.missions[i], 5)
+
+        recode_text = "HISTORY:{0}/{1} BESTTIME:{2}".format(self.recode_list[1], self.recode_list[2], self.recode_list[3])
+        pyxel.text(67, 130, recode_text, 5)

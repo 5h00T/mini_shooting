@@ -1,8 +1,7 @@
 import pyxel
 import scene_manager
 import time
-import menu
-import math
+import os
 
 class App:
     def __init__(self):
@@ -11,6 +10,11 @@ class App:
         self.fps_base_time = time.time()
         self.fps = 0
         self.scene_manager = scene_manager.SceneManager()
+        if not os.path.exists("score.txt"):
+            with open("score.txt", "wt") as f:
+                for mission_number in range(0, 21):
+                    f.writelines(str(mission_number) + "," + "0" + "," + "0" + "," + "0" + "\n")
+
         pyxel.run(self.update, self.draw)
 
     def update(self):
@@ -27,7 +31,6 @@ class App:
         pyxel.cls(7)
         self.scene_manager.draw()
         pyxel.text(173, 246, str(self.fps)[:4], 3)
-        pyxel.text(100, 240, str(pyxel.frame_count), 3)
 
 
 App()

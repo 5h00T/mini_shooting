@@ -9,14 +9,16 @@ class Mission():
         print("Mission")
         self.player = player.Player(pyxel.width / 2, 200, 10, 10, 1, 2)
         self.enemy_max_hp = self.enemy.hp
-        self.return_value = Scene.NO_SCENE_CHANGE
+        self.return_value = {"status": Scene.NO_SCENE_CHANGE}
         self.is_clear = False
         self.after_clear_time = 0
+        self.count = 0
         self.bullet_pool = bullet_pool.EnemyBulletPool
 
     def update(self):
         self.player.update()
         if not self.is_clear:
+            self.count += 1
             self.enemy.update()
             self.collision_detection()
         else:
@@ -24,11 +26,12 @@ class Mission():
 
         if self.after_clear_time == 180:
             self.bullet_pool.all_reset_bullet()
-            self.return_value = Scene.MISSION_SELECT
+            self.return_value["status"] = "clear"
+            self.return_value["time"] = self.count
 
         if pyxel.btn(pyxel.KEY_Q) and not self.is_clear:
             self.bullet_pool.all_reset_bullet()
-            self.return_value = Scene.MISSION_SELECT
+            self.return_value["status"] = "exit"
 
         print(self.bullet_pool.get_active_bullet_num())
 
@@ -39,8 +42,9 @@ class Mission():
             for bit in self.enemy.bits:
                 bit.shot_position.draw()
 
-            pyxel.line(10, 10, 170 * self.enemy.hp / self.enemy_max_hp + 10, 10, 13)
+            pyxel.line(50, 5, 130 * self.enemy.hp / self.enemy_max_hp + 50, 5, 13)
 
+        pyxel.text(5, 5, "TIME:" + str(self.count), 13)
         if self.is_clear:
             if self.after_clear_time % 30 < 15:
                 pyxel.text(85, pyxel.height / 2, "Clear!", 14)
@@ -130,8 +134,8 @@ class Mission():
         self.enemy_playerbullet_detection()
         self.bit_playerbullet_detection()
         if self.player_enemybullet_detection() or self.player_bitbullet_detection():
-            #self.return_value = Scene.MISSION_SELECT
-            pass
+            self.bullet_pool.all_reset_bullet()
+            self.return_value["status"] = "exit"
 
     def mission_clear(self):
         self.is_clear = True
