@@ -12,11 +12,13 @@ class Mission():
         self.return_value = Scene.NO_SCENE_CHANGE
         self.is_clear = False
         self.after_clear_time = 0
+        self.count = 0
         self.bullet_pool = bullet_pool.EnemyBulletPool
 
     def update(self):
         self.player.update()
         if not self.is_clear:
+            self.count += 1
             self.enemy.update()
             self.collision_detection()
         else:
@@ -39,8 +41,9 @@ class Mission():
             for bit in self.enemy.bits:
                 bit.shot_position.draw()
 
-            pyxel.line(10, 10, 170 * self.enemy.hp / self.enemy_max_hp + 10, 10, 13)
+            pyxel.line(50, 5, 130 * self.enemy.hp / self.enemy_max_hp + 50, 5, 13)
 
+        pyxel.text(5, 5, "TIME:" + str(self.count), 13)
         if self.is_clear:
             if self.after_clear_time % 30 < 15:
                 pyxel.text(85, pyxel.height / 2, "Clear!", 14)
