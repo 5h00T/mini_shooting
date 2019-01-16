@@ -1,13 +1,13 @@
-from enemy import enemy17
+from enemy import enemy20
 import pyxel
 from . import mission
 
 
-class Mission17(mission.Mission):
+class Mission20(mission.Mission):
 
     def __init__(self):
-        print("Mission17")
-        self.enemy = enemy17.Enemy17(pyxel.width / 2, 35, 16, 16, 180, 8)
+        print("Mission20")
+        self.enemy = enemy20.Enemy20(pyxel.width / 2, 60, 30, 30, 1500, 8)
         super().__init__()
 
     def update(self):

@@ -1,7 +1,7 @@
 import pyxel
 import player
 from scene import Scene
-
+import bullet_pool
 
 class Mission():
 
@@ -12,6 +12,7 @@ class Mission():
         self.return_value = Scene.NO_SCENE_CHANGE
         self.is_clear = False
         self.after_clear_time = 0
+        self.bullet_pool = bullet_pool.EnemyBulletPool
 
     def update(self):
         self.player.update()
@@ -22,15 +23,22 @@ class Mission():
             self.after_clear_time += 1
 
         if self.after_clear_time == 180:
+            self.bullet_pool.all_reset_bullet()
             self.return_value = Scene.MISSION_SELECT
 
         if pyxel.btn(pyxel.KEY_Q) and not self.is_clear:
+            self.bullet_pool.all_reset_bullet()
             self.return_value = Scene.MISSION_SELECT
+
+        print(self.bullet_pool.get_active_bullet_num())
 
     def draw(self):
         self.player.draw()
         if not self.is_clear:
             self.enemy.draw()
+            for bit in self.enemy.bits:
+                bit.shot_position.draw()
+
             pyxel.line(10, 10, 170 * self.enemy.hp / self.enemy_max_hp + 10, 10, 13)
 
         if self.is_clear:
@@ -122,7 +130,8 @@ class Mission():
         self.enemy_playerbullet_detection()
         self.bit_playerbullet_detection()
         if self.player_enemybullet_detection() or self.player_bitbullet_detection():
-            self.return_value = Scene.MISSION_SELECT
+            #self.return_value = Scene.MISSION_SELECT
+            pass
 
     def mission_clear(self):
         self.is_clear = True

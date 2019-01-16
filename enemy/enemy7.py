@@ -1,3 +1,5 @@
+import math
+
 from enemy import enemy
 
 
@@ -9,18 +11,16 @@ class Enemy7(enemy.Enemy):
         self.shot_positions.append(enemy.ShotPosition(self.x, self.y + 10))
         self.shot_positions.append(enemy.ShotPosition(self.x, self.y - 10))
         self.shot_positions.append(enemy.ShotPosition(self.x, self.y))
+        angle_function = lambda count: 2.4 * count
+        self.set_shot_function(self.shot_positions[0].pattern1(0, 0.6, 9, 0, math.inf, angle_function))
+        self.set_shot_function(self.shot_positions[1].pattern1(0, 0.6, 9, 0, math.inf, angle_function))
+        self.set_shot_function(self.shot_positions[2].pattern1(0, 0.6, 9, 0, math.inf, angle_function))
+        self.set_shot_function(self.shot_positions[3].pattern1(0, 0.6, 9, 0, math.inf, angle_function))
+        self.set_shot_function(self.shot_positions[4].pattern2(2, 40))
+        self.set_shot_function(self.shot_positions[4].pattern2(2, 40, 500))
 
     def update(self):
         super().update()
-        if self.count % 9 == 0:
-            angle = self.count * 2.4
-            self.shot_positions[0].pattern1(angle, 0.6)
-            self.shot_positions[1].pattern1(angle, 0.6)
-            self.shot_positions[2].pattern1(angle, 0.6)
-            self.shot_positions[3].pattern1(angle, 0.6)
-
-        if self.count % 40 == 0 or (self.count > 600 and self.count % 23 == 0):
-            self.shot_positions[4].pattern2(2)
 
     def draw(self):
         super().draw()

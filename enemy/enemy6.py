@@ -10,17 +10,14 @@ class Enemy6(enemy.Enemy):
         self.shot_positions.append(enemy.ShotPosition(self.x - 20, self.y))
         self.shot_positions.append(enemy.ShotPosition(self.x + 20, self.y))
         self.shot_positions.append(enemy.ShotPosition(self.x, self.y))
+        self.move_functions.append(self.move_pattern1(0.5, 0.9, 1, 2, math.pi / 2, 0.04))
+        angle_function = lambda count: 100 * math.sin(count / 30)
+        self.set_shot_function(self.shot_positions[0].pattern1(0, 4, 2, 0, math.inf, angle_function))
+        self.set_shot_function(self.shot_positions[1].pattern1(180, 4, 2, 0, math.inf, angle_function))
+        self.set_shot_function(self.shot_positions[2].pattern17(0, 360, 0.8, 5))
 
     def update(self):
         super().update()
-        if self.count % 2 == 0:
-            self.shot_positions[0].pattern1(0 + 100 * math.sin(self.count / 30), 4)
-            self.shot_positions[1].pattern1(180 + 100 * math.sin(self.count / 30), 4)
-
-        if self.count % 5 == 0:
-            self.shot_positions[2].pattern1(random.uniform(0, 360), 0.8)
-
-        self.move_pattern1(0.5, 0.9, 1, 2, math.pi / 2, self.count / 30)
 
     def draw(self):
         super().draw()
