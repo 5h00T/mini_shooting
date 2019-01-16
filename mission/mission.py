@@ -9,7 +9,7 @@ class Mission():
         print("Mission")
         self.player = player.Player(pyxel.width / 2, 200, 10, 10, 1, 2)
         self.enemy_max_hp = self.enemy.hp
-        self.return_value = Scene.NO_SCENE_CHANGE
+        self.return_value = {"status": Scene.NO_SCENE_CHANGE}
         self.is_clear = False
         self.after_clear_time = 0
         self.count = 0
@@ -26,11 +26,12 @@ class Mission():
 
         if self.after_clear_time == 180:
             self.bullet_pool.all_reset_bullet()
-            self.return_value = Scene.MISSION_SELECT
+            self.return_value["status"] = "clear"
+            self.return_value["time"] = self.count
 
         if pyxel.btn(pyxel.KEY_Q) and not self.is_clear:
             self.bullet_pool.all_reset_bullet()
-            self.return_value = Scene.MISSION_SELECT
+            self.return_value["status"] = "exit"
 
         print(self.bullet_pool.get_active_bullet_num())
 
@@ -133,7 +134,7 @@ class Mission():
         self.enemy_playerbullet_detection()
         self.bit_playerbullet_detection()
         if self.player_enemybullet_detection() or self.player_bitbullet_detection():
-            #self.return_value = Scene.MISSION_SELECT
+            self.return_value["status"] = Scene.MISSION_SELECT
             pass
 
     def mission_clear(self):
