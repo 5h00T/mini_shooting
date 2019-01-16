@@ -23,8 +23,8 @@ class SceneManager():
             self.scene = mission_select.MissionSelect(scene_transition[1])
         elif scene_transition[0] == Scene.SETTINGS:
             print("SETTINGS")
-        elif scene_transition[0] == Scene.EXIT:
-            print("EXIT")
+        elif scene_transition[0] == Scene.QUIT:
+            print("QUIT")
             pyxel.quit()
         elif scene_transition[0] == Scene.MISSION:
             print("MISSION")

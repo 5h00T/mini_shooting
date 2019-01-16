@@ -10,7 +10,7 @@ class MissionSelect():
         self.missions = ["mission" + i for i in missions.missions.keys()]
         self.mission_recode = [i for i in open("score.txt").readlines()]
         self.recode_list = ["0", "0", "0", "0"]
-        self.menu_item = ["MissionSelect", "Exit"]
+        self.menu_item = ["MissionSelect", "Quit"]
         self.is_active = True
 
     def update(self):
@@ -34,7 +34,6 @@ class MissionSelect():
     def draw(self):
         pyxel.text(10, 120, self.menu_item[0], 8)
         pyxel.text(10, 140, self.menu_item[1], 5)
-        pyxel.text(10, 160, self.menu_item[2], 5)
 
         for i in range(0, len(self.missions)):
             if i+1 == self.cursor:
