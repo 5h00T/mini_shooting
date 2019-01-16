@@ -134,8 +134,8 @@ class Mission():
         self.enemy_playerbullet_detection()
         self.bit_playerbullet_detection()
         if self.player_enemybullet_detection() or self.player_bitbullet_detection():
-            self.return_value["status"] = Scene.MISSION_SELECT
-            pass
+            self.bullet_pool.all_reset_bullet()
+            self.return_value["status"] = "exit"
 
     def mission_clear(self):
         self.is_clear = True
