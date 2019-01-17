@@ -9,7 +9,7 @@ import missions
 class SceneManager():
 
     def __init__(self):
-        print("SceneManager")
+        # print("SceneManager")
         self.scene = menu.Menu()
         self.mission = 0
 

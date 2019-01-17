@@ -2,6 +2,7 @@ from enemy import enemy9
 import pyxel
 from . import mission
 
+
 class Mission9(mission.Mission):
 
     def __init__(self):
