@@ -5,15 +5,16 @@ import missions
 class MissionSelect():
 
     def __init__(self, cursor_position):
-        print("MissionSelect")
+        # print("MissionSelect")
         self.cursor = cursor_position
         self.missions = ["mission" + i for i in missions.missions.keys()]
         self.mission_recode = [i for i in open("score.txt").readlines()]
         self.recode_list = ["0", "0", "0", "0"]
-        self.menu_item = ["MissionSelect", "Exit"]
+        self.menu_item = ["MissionSelect", "Quit"]
         self.is_active = True
 
     def update(self):
+        # カーソルが要素外を示さないように制限
         if pyxel.btnp(pyxel.KEY_UP, 30, 20):
             self.cursor = max(1, self.cursor - 1)
         elif pyxel.btnp(pyxel.KEY_DOWN, 30, 20):
@@ -24,7 +25,7 @@ class MissionSelect():
         if pyxel.btnp(pyxel.KEY_Z, 10, 10):
             for mission_number in range(1, len(self.missions) + 1):
                 if self.cursor == mission_number:
-                    return Scene.MISSION, mission_number, int(self.recode_list[2]), int(self.recode_list[3])
+                    return Scene.MISSION, mission_number, int(self.recode_list[3])
 
         if pyxel.btn(pyxel.KEY_X):
             return Scene.MENU, 0
@@ -34,7 +35,6 @@ class MissionSelect():
     def draw(self):
         pyxel.text(10, 120, self.menu_item[0], 8)
         pyxel.text(10, 140, self.menu_item[1], 5)
-        pyxel.text(10, 160, self.menu_item[2], 5)
 
         for i in range(0, len(self.missions)):
             if i+1 == self.cursor:

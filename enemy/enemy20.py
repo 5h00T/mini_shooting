@@ -60,7 +60,7 @@ class Enemy20(enemy.Enemy):
                     bit.set_return_shot(
                         bit.shot_position.pattern14(10, random.randint(0, 360), 0, 3, 0, 2, 60, 0.01, -1, math.inf, 1, 0, 1,
                                                     None))
-        elif 2000 < self.shot_count < 2900:
+        elif 2100 < self.shot_count < 3000:
             if self.pattern3_init is False:
                 self.pattern3_init = True
                 self.set_move_function(self.move_pattern1(1, 1, 2, 3, math.pi / 6, 0.02, 0, 800))
@@ -103,9 +103,9 @@ class Enemy20(enemy.Enemy):
                 self.set_shot_function(
                     self.shot_positions[4].pattern14(5, angle + 36, 0, 2, 1.1, 40, 50, 0, -1, math.inf, 40, 0, 800,
                                                      angle_function))
-        elif self.shot_count == 3000:
+        elif self.shot_count == 3080:
             self.set_move_function(self.move_pattern2(self.x, self.y, pyxel.width / 2, 70, 0, 50))
-        elif self.shot_count == 3100:
+        elif self.shot_count == 3180:
             angle = random.randint(0, 360)
 
             self.set_shot_function(
@@ -132,7 +132,7 @@ class Enemy20(enemy.Enemy):
                 self.shot_positions[4].pattern14(20, angle, 0, 1.3, 1.6, 40, 50, 0, -1, math.inf, 1, 0, 1))
             self.set_shot_function(
                 self.shot_positions[4].pattern14(20, angle + 9, 0, 1.3, 1.1, 40, 50, 0, -1, math.inf, 1, 0, 1))
-        elif self.shot_count == 3300:
+        elif self.shot_count == 3380:
             self.shot_count = 0
             self.pattern1_init = False
             self.pattern2_init = False

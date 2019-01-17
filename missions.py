@@ -1,24 +1,25 @@
-from mission import mission1
-from mission import mission2
-from mission import mission3
-from mission import mission4
-from mission import mission5
-from mission import mission6
-from mission import mission7
-from mission import mission8
-from mission import mission9
-from mission import mission10
-from mission import mission11
-from mission import mission12
-from mission import mission13
-from mission import mission14
-from mission import mission15
-from mission import mission16
-from mission import mission17
-from mission import mission18
-from mission import mission19
-from mission import mission20
-
+from mission import (
+    mission1,
+    mission2,
+    mission3,
+    mission4,
+    mission5,
+    mission6,
+    mission7,
+    mission8,
+    mission9,
+    mission10,
+    mission11,
+    mission12,
+    mission13,
+    mission14,
+    mission15,
+    mission16,
+    mission17,
+    mission18,
+    mission19,
+    mission20,
+)
 missions = {
     "1": mission1.Mission1,
     "2": mission2.Mission2,

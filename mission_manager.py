@@ -2,14 +2,16 @@ from scene import Scene
 
 
 class Mission():
+    """
+    ミッション中のクラスを保持して管理、記録の更新を行う
+    """
 
-    def __init__(self, mission, charenge_times, best_time):
+    def __init__(self, mission, best_time):
         print("Mission", mission)
         self.mission = mission()
-        self.charenge_times = charenge_times
         self.best_time = best_time
-        print(self.best_time)
-        print(self.mission.__class__.__name__[-2:])
+        # print(self.best_time)
+        # print(self.mission.__class__.__name__[-2:])
         self.mission_number = int(''.join([ch for ch in self.mission.__class__.__name__[-2:] if ch.isdecimal()]))
         # 挑戦回数を追加
         with open("score.txt", "rt") as f:
@@ -33,11 +35,13 @@ class Mission():
             record = record_list[self.mission_number][:-1].split(",")
             # 最高記録または初回クリアの時にBestTimeを更新
             if self.best_time > self.mission.return_value["time"] or self.best_time == 0:
-                new_record_list[self.mission_number] = "{0},{1},{2},{3}\n".format(record[0], str(int(record[1]) + 1), record[2],
+                new_record_list[self.mission_number] = "{0},{1},{2},{3}\n".format(record[0], str(int(record[1]) + 1),
+                                                                                  record[2],
                                                                                   self.mission.return_value["time"])
             else:
-                new_record_list[self.mission_number] = "{0},{1},{2},{3}\n".format(record[0], str(int(record[1]) + 1), record[2],
-                                                                              record[3])
+                new_record_list[self.mission_number] = "{0},{1},{2},{3}\n".format(record[0], str(int(record[1]) + 1),
+                                                                                  record[2],
+                                                                                  record[3])
             with open("score.txt", "wt") as f:
                 f.writelines(new_record_list)
 
