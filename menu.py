@@ -11,6 +11,7 @@ class Menu():
         self.is_active = True
 
     def update(self):
+        # カーソルが要素外を示さないように制限
         if pyxel.btnp(pyxel.KEY_UP, 30, 30):
             self.cursor = max(0, self.cursor - 1)
         elif pyxel.btnp(pyxel.KEY_DOWN, 30, 30):

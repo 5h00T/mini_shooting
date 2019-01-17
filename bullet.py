@@ -2,13 +2,15 @@ import pyxel
 import math
 
 
+COLLISION_RADIUS_RATE = 0.3  # 見た目の当たり判定からどのぐらい
+
 class Bullet():
 
     def __init__(self, radius, x, y, movement_x, movement_y, speed, color):
         self.x = x
         self.y = y
         self.radius = radius
-        self.collision_radius = self.radius * 0.3
+        self.collision_radius = self.radius * COLLISION_RADIUS_RATE  # 当たり判定
         self.speed = speed
         self.color = color
         self.count = 0
@@ -20,25 +22,28 @@ class Bullet():
     def update(self):
         if self.is_active:
             self.count += 1
+            # 移動
             self.x += self.movement_x * self.speed
             self.y += self.movement_y * self.speed
-            # print(self.x, self.y)
 
+            # 移動用の関数が設定されていた場合実行
             for move_function in self.move_functions:
-                # print("O")
                 if move_function is not None:
-                    # print("A")
                     try:
                         next(move_function)
                     except StopIteration:
                         self.move_functions.remove(move_function)
 
+        # 画面外に出たら非アクティブ化
         if self.x < 0 or self.x > pyxel.width or self.y < 0 or self.y > pyxel.height:
             self.count = 0
             self.move_functions.clear()
             self.is_active = False
 
     def draw(self):
+        """
+        自身の描写
+        """
         if self.is_active:
             pyxel.circ(self.x, self.y, self.radius, self.color)
 
@@ -47,7 +52,6 @@ class EnemyBullet(Bullet):
 
     def __init__(self, radius, x, y, movement_x, movement_y, speed, color):
         super().__init__(radius, x, y, movement_x, movement_y, speed, color)
-        self.count = 0
 
     def update(self):
         super().update()
@@ -103,6 +107,7 @@ class EnemyBullet(Bullet):
 
             count += 1
             yield
+
 
 class PlayerBullet(Bullet):
 

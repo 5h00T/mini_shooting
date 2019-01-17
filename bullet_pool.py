@@ -4,6 +4,10 @@ MAX_BULLET_NUM = 250
 
 
 class EnemyBulletPool():
+    """
+    敵弾のオブジェクトプール
+    ゲーム起動時にMAX_BULLET_NUM個の弾を生成し使いまわす
+    """
     bullet_pool = [bullet.EnemyBullet(2, -1, -11, 0, 0, 0, 0) for i in range(MAX_BULLET_NUM)]
     max_bullet_num = MAX_BULLET_NUM
 
@@ -59,6 +63,7 @@ class PlayerBulletPool():
             if not self.bullet_pool[i].is_active:
                 self.bullet_pool[i].is_active = True
                 self.bullet_pool[i].radius = radius
+                self.bullet_pool[i].count = 0
                 self.bullet_pool[i].x = x
                 self.bullet_pool[i].y = y
                 self.bullet_pool[i].movement_x = movement_x

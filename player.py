@@ -1,6 +1,5 @@
 import pyxel
 import bullet_pool
-import copy
 import math
 
 
@@ -13,11 +12,11 @@ class Player():
         Player.y = y
         self.width = width
         self.height = height
-        self.view_start_x = self.x - self.width / 2
-        self.view_start_y = self.y - self.height / 2
-        self.collision_radius = collision_radius
+        self.view_start_x = self.x - self.width / 2  # 長方形の始点
+        self.view_start_y = self.y - self.height / 2  # 長方形の始点
+        self.collision_radius = collision_radius  # あたり判定
         self.speed = speed
-        self.slow_speed = 0.5
+        self.slow_speed = 0.5  # 低速移動したときのスピード
         self.count = 0
         self.bullet_pool = bullet_pool.PlayerBulletPool(30)
         self.bullets = []
@@ -50,28 +49,29 @@ class Player():
         is_slanting = False
         slanting_speed = 0.71
         is_slow = False
-        slow_speed = 0.5
 
         if pyxel.btn(pyxel.KEY_LEFT_SHIFT):
             is_slow = True
 
+        # 上または下と左または右が押されたとき移動量を0.71倍する
         if (pyxel.btn(pyxel.KEY_RIGHT) or pyxel.btn(pyxel.KEY_LEFT)) and \
             (pyxel.btn(pyxel.KEY_UP) or pyxel.btn(pyxel.KEY_DOWN)):
             is_slanting = True
 
         if pyxel.btn(pyxel.KEY_RIGHT):
-            Player.x += self.speed * (slanting_speed if is_slanting else 1) * (slanting_speed if is_slow else 1)
+            Player.x += self.speed * (slanting_speed if is_slanting else 1) * (self.slow_speed if is_slow else 1)
         elif pyxel.btn(pyxel.KEY_LEFT):
-            Player.x -= self.speed * (slanting_speed if is_slanting else 1) * (slanting_speed if is_slow else 1)
+            Player.x -= self.speed * (slanting_speed if is_slanting else 1) * (self.slow_speed if is_slow else 1)
 
         if pyxel.btn(pyxel.KEY_UP):
-            Player.y -= self.speed * (slanting_speed if is_slanting else 1) * (slanting_speed if is_slow else 1)
+            Player.y -= self.speed * (slanting_speed if is_slanting else 1) * (self.slow_speed if is_slow else 1)
         elif pyxel.btn(pyxel.KEY_DOWN):
-            Player.y += self.speed * (slanting_speed if is_slanting else 1) * (slanting_speed if is_slow else 1)
+            Player.y += self.speed * (slanting_speed if is_slanting else 1) * (self.slow_speed if is_slow else 1)
 
         self.view_start_x = Player.x - self.width / 2
         self.view_start_y = Player.y - self.height / 2
 
+        # 画面外に行かないように移動制限
         if self.view_start_x < 0:
             Player.x = self.width / 2
         elif self.view_start_x + self.width >= pyxel.width:

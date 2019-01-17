@@ -3,6 +3,7 @@ import scene_manager
 import time
 import os
 
+
 class App:
     def __init__(self):
         pyxel.init(width=189, height=252, caption="shooting", fps=60)
@@ -10,6 +11,7 @@ class App:
         self.fps_base_time = time.time()
         self.fps = 0
         self.scene_manager = scene_manager.SceneManager()
+        # 記録用ファイルがない場合は起動時に作成
         if not os.path.exists("score.txt"):
             with open("score.txt", "wt") as f:
                 for mission_number in range(0, 21):
