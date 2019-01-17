@@ -87,9 +87,7 @@ class EnemyBullet(Bullet):
 
     def pattern3(self, angle, start_count):
         while True:
-            # print(self.count, start_count)
             if self.count == start_count:
-                # print("mom")
                 self.movement_x = math.cos(math.radians(angle))
                 self.movement_y = math.sin(math.radians(angle))
                 break

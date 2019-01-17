@@ -16,7 +16,7 @@ class Enemy():
         self.count = 0
         self.view_start_x = self.x - self.width / 2
         self.view_start_y = self.y - self.height / 2
-        self.shot_positions = []
+        self.shot_positions = []  # 弾源を格納するリスト
         self.bits = []
         self.move_functions = []
         # self.shot_functions = {}
@@ -84,7 +84,7 @@ class Enemy():
         :param a: 角周波数
         :param b: 角周波数
         :param delta: 位相差
-        :param t:
+        :param t: 時間
         :return:
         """
         count = 0
@@ -117,13 +117,16 @@ class Enemy():
 
             yield
 
-    def move_pattern2(self, start_position_x, start_position_y, target_position_x, target_position_y, start_count, end_count):
+    def move_pattern2(self, start_position_x, start_position_y, target_position_x, target_position_y, start_count,
+                      end_count):
         """
-
-        :param position_x:
-        :param position_y:
-        :param count:
-        :return:
+        終点の方向に直線移動
+        :param start_position_x: 開始位置
+        :param start_position_y: 開始位置
+        :param target_position_x: 終点
+        :param target_position_y: 終点
+        :param start_count: 移動開始カウント
+        :param end_count: 移動終了カウント
         """
 
         count = 0
@@ -157,6 +160,14 @@ class Enemy():
 
 
 class ShotPosition():
+    """
+    Enemyが共通して使う弾幕は関数にして呼び出す
+    各パターンの引数について
+    interval_count: 何フレームごとに発射するか
+    start_count: 開始カウント
+    end_count: 終了カウント
+    angle_function: 発射ごとに角度を変更したい場合増加させる角度を返す関数を指定する
+    """
 
     def __init__(self, x, y):
         self.x = x
@@ -165,7 +176,6 @@ class ShotPosition():
         self.bullet_pool = bullet_pool.EnemyBulletPool
 
     def update(self):
-        # print("bullets", len(self.bullets))
         for b in self.bullets:
             b.update()
             if not b.is_active:
@@ -179,7 +189,11 @@ class ShotPosition():
         """
         angle度の方向に一発発射する
         :param angle: 角度
-        :return:
+        :param speed: 弾の速さ
+        :param interval_count: 何フレームごとに発射するか
+        :param start_count: 開始カウント
+        :param end_count: 終了カウント
+        :param angle_function: 発射ごとに角度を変更したい場合増加させる角度を返す関数を指定する
         """
         count = 0
         while count < end_count:
@@ -202,7 +216,6 @@ class ShotPosition():
         """
         自機狙いを一発発射する
         :param speed: 弾のスピード
-        :return:
         """
         count = 0
         while count < end_count:
@@ -245,8 +258,8 @@ class ShotPosition():
     def pattern4(self, way, angle, speed, interval_count, start_count=0, end_count=math.inf):
         """
         angle度間隔が開いたway弾をランダムな角度で発射する
-        :param way:
-        :param angle:
+        :param way: way数
+        :param angle: 弾の間の角度
         :return:
         """
         count = 0
@@ -276,7 +289,7 @@ class ShotPosition():
         count = 0
         while count < end_count:
             if count >= start_count:
-                if (start_count+count) % interval_count == 0:
+                if (start_count + count) % interval_count == 0:
                     player_x, player_y = player.Player.getPosition()
                     angle_to_player = math.atan2(player_y - self.y, player_x - self.x)
                     degree_angle_to_player = math.degrees(angle_to_player)
@@ -294,11 +307,16 @@ class ShotPosition():
             count += 1
             yield
 
-    def pattern6(self, angle1, angle2, speed1, speed2, t1, t2, interval_count, start_count=0, end_count=math.inf):
+    def pattern6(self, angle1, angle2, speed1, speed2, move_time, stop_time, interval_count, start_count=0, end_count=math.inf):
         """
-        angle度の方向に一発発射する
-        :param angle1: 角度
-        :return:
+        angle度の方向に一発発射
+        発射後move_timeカウント後stop_timeカウント停止しangle2角度変えながらspeed2で移動する
+        :param angle1: 発射時の角度
+        :param angle2: 停止後に加える角度
+        :param speed1: 発射時の速度
+        :param speed2: 再移動時の速度
+        :param move_time: 最初に停止するまでのカウント
+        :param stop_time: 停止時間
         """
         count = 0
         while count < end_count:
@@ -307,16 +325,16 @@ class ShotPosition():
                     b = self.bullet_pool.get_bullet(3, self.x, self.y, math.cos(math.radians(angle1)),
                                                     math.sin(math.radians(angle1)), speed1, 0)
                     if b:
-                        b.set_move_function(b.pattern1(t1, t2, angle2, speed2))
+                        b.set_move_function(b.pattern1(move_time, stop_time, angle2, speed2))
             count += 1
             yield
 
     def pattern7(self, way, angle, speed, interval_count, start_count=0, end_count=math.inf):
         """
         全方位num弾を最初の弾がangle度に発射されるように発射する
-        :param way:
-        :param angle:
-        :param speed:
+        :param way: way数
+        :param angle: 最初の弾の方向
+        :param speed: 弾の速さ
         :return:
         """
         count = 0
@@ -333,13 +351,17 @@ class ShotPosition():
             count += 1
             yield
 
-    def pattern8(self, way, angle1, angle2, speed1, speed2, t1, t2, interval_count, start_count=0, end_count=math.inf):
+    def pattern8(self, way, angle1, angle2, speed1, speed2, move_time, stop_time, interval_count, start_count=0, end_count=math.inf):
         """
         全方位num弾を最初の弾がangle度に発射されるように発射する
-        :param way:
-        :param angle1:
-        :param speed1:
-        :return:
+        発射後move_timeカウント後stop_timeカウント停止しangle2角度変えてspeed2で移動する
+        :param way: way数
+        :param angle1: 発射時の角度
+        :param angle2: 停止後に加える角度
+        :param speed1: 発射時の速度
+        :param speed2: 再移動時の速度
+        :param move_time: 最初に停止するまでのカウント
+        :param stop_time: 停止時間
         """
         count = 0
         while count < end_count:
@@ -352,20 +374,27 @@ class ShotPosition():
                         if b:
                             self.bullets.append(b)
                             b.set_move_function(
-                                b.pattern1(t1, t2, angle2 + math.degrees(math.atan2(b.movement_y, b.movement_x)),
+                                b.pattern1(move_time, stop_time, angle2 + math.degrees(math.atan2(b.movement_y, b.movement_x)),
                                            speed2))
 
                         _angle += 360 / way
             count += 1
             yield
 
-    def pattern9(self, way, angle, speed, a, min_speed, max_speed, change_start_count, change_end_count, interval_count, start_count=0, end_count=math.inf):
+    def pattern9(self, way, angle, speed, a, min_speed, max_speed, change_start_count, change_end_count, interval_count,
+                 start_count=0, end_count=math.inf):
         """
         angle度間隔が開いた自機狙いway弾を発射する
+        発射後change_start_count後に弾のスピードを毎フレームaずつ加速させる
+        change_end_count後に加速を終了
         :param way: way数
         :param angle: 弾の間の角度
-        :param speed: 弾のスピード
-        :return:
+        :param speed: 弾の速さ
+        :param a: 加速度
+        :param min_speed: スピードの下限
+        :param max_speed: スピードの上限
+        :param change_start_count: 速度を変化の開始カウント
+        :param change_end_count: 速度を変化の停止カウント
         """
         count = 0
         while count < end_count:
@@ -391,8 +420,8 @@ class ShotPosition():
         angle度間隔が開いたway弾を中心がtarget_angleの方向に発射する
         :param way: way数
         :param angle: 弾の間の角度
-        :param speed: 弾のスピード
-        :return:
+        :param target_angle: 発射方向
+        :param speed: 弾の速さ
         """
         count = 0
         while count < end_count:
@@ -408,13 +437,15 @@ class ShotPosition():
             count += 1
             yield
 
-    def pattern11(self, way, angle, target_angle, num, speed, delta_speed, interval_count, start_count=0, end_count=math.inf):
+    def pattern11(self, way, angle, target_angle, num, speed, delta_speed, interval_count, start_count=0,
+                  end_count=math.inf):
         """
         angle度間隔が開いたway弾をnum発delta_speedずつ速度を増やしながらtarget_angle方向に向けて発射する
         :param way: way数
         :param angle: 弾の間の角度
+        :param target_angle: 発射方向
         :param num: 連数
-        :param speed: 弾のスピード
+        :param speed: 弾の速さ
         :param delta_speed: 連毎に増やす速度
         :return:
         """
@@ -436,12 +467,17 @@ class ShotPosition():
             count += 1
             yield
 
-    def pattern12(self, way, angle, target_angle, shot_position_x, shot_position_y, speed, interval_count, start_count=0, end_count=math.inf):
+    def pattern12(self, way, angle, target_angle, shot_position_x, shot_position_y, speed, interval_count,
+                  start_count=0, end_count=math.inf):
         """
         angle度間隔が開いたway弾を中心がtarget_angleの方向に発射する
+        発射後move_timeカウント後stop_timeカウント停止しangle2角度変えながらspeed2で移動する
         :param way: way数
         :param angle: 弾の間の角度
-        :param speed: 弾のスピード
+        :param target_angle: 発射方向
+        :param shot_position_x: 発射位置
+        :param shot_position_y:  発射位置
+        :param speed: 弾の速さ
         :return:
         """
         count = 0
@@ -459,14 +495,15 @@ class ShotPosition():
             count += 1
             yield
 
-    def pattern13(self, way, angle1, angle2, change_start_count, speed, interval_count, start_count=0, end_count=math.inf):
+    def pattern13(self, way, angle1, angle2, change_start_count, speed, interval_count, start_count=0,
+                  end_count=math.inf):
         """
-        全方位num弾を最初の弾がangle度に発射されるように発射する
-        発射された弾はstart_count後にangle2度に角度を変える
-        :param way:
-        :param angle1:
-        :param speed:
-        :return:
+        全方位num弾を最初の弾がangle1度に発射されるように発射する
+        :param way: way数
+        :param angle1: 発射時の角度
+        :param angle2: 変更する角度
+        :param change_start_count: 角度を変更する
+        :param speed: 弾の速さ
         """
         count = 0
         while count < end_count:
@@ -484,12 +521,22 @@ class ShotPosition():
             count += 1
             yield
 
-    def pattern14(self, way, angle1, angle2, speed1, speed2, t1, t2, a, min_speed, max_speed, interval_count, start_count=0, end_count=math.inf, angle_function1=None):
+    def pattern14(self, way, angle1, angle2, speed1, speed2, move_time, stop_time, a, min_speed, max_speed, interval_count,
+                  start_count=0, end_count=math.inf, angle_function1=None):
         """
         全方位num弾を最初の弾がangle度に発射されるように発射する
-        :param way:
-        :param angle:
-        :param speed:
+        発射後move_timeカウント後stop_timeカウント停止しangle2角度変えながらspeed2で移動
+        また再移動後に弾のスピードを毎フレームaずつ加速させる
+        :param way: way数
+        :param angle1: 発射時の角度
+        :param angle2: 停止後に加える角度
+        :param speed1: 発射時の弾の速さ
+        :param speed2: 再移動時の弾の速さ
+        :param move_time: 最初に停止するまでのカウント
+        :param stop_time: 停止時間
+        :param a: 加速度
+        :param min_speed: スピードの下限
+        :param max_speed: スピードの上限
         :return:
         """
         count = 0
@@ -507,9 +554,9 @@ class ShotPosition():
                         if b:
                             self.bullets.append(b)
                             b.set_move_function(
-                                b.pattern1(t1, t2, angle2 + math.degrees(math.atan2(b.movement_y, b.movement_x)),
+                                b.pattern1(move_time, stop_time, angle2 + math.degrees(math.atan2(b.movement_y, b.movement_x)),
                                            speed2))
-                            b.set_move_function(b.pattern2(a, min_speed, max_speed, t2, 999))
+                            b.set_move_function(b.pattern2(a, min_speed, max_speed, stop_time, 999))
 
                         _angle += 360 / way
             count += 1
@@ -517,9 +564,9 @@ class ShotPosition():
 
     def pattern15(self, sigma, speed, interval_count, start_count=0, end_count=math.inf):
         """
-        自機への角度を平均、標準偏差をsigmaのランダムにずらした弾を一発発射する
-        :param speed: 弾のスピード
-        :return:
+        自機への角度を平均、標準偏差をsigmaの正規分布に従う乱数ずらした弾を一発発射する
+        :param sigma: 標準偏差
+        :param speed: 弾の速さ
         """
         count = 0
         while count < end_count:
@@ -535,15 +582,16 @@ class ShotPosition():
             count += 1
             yield
 
-    def pattern16(self, way, angle, delta_angle, num, speed, delta_speed, interval_count, start_count=0, end_count=math.inf, angle_function=None):
+    def pattern16(self, way, angle, delta_angle, num, speed, delta_speed, interval_count, start_count=0,
+                  end_count=math.inf, angle_function=None):
         """
         angle度間隔が開いた自機狙いway弾をdelta_angleずつずらし、num発delta_speedずつ速度を増やしながら発射する
         :param way: way数
         :param angle: 弾の間の角度
+        :param delta_angle: 自機狙いをずらす角度
         :param num: 連数
-        :param speed: 弾のスピード
+        :param speed: 弾の速さ
         :param delta_speed: 連毎に増やす速度
-        :return:
         """
         count = 0
         while count < end_count:
@@ -571,8 +619,9 @@ class ShotPosition():
     def pattern17(self, min_angle, max_angle, speed, interval_count, start_count=0, end_count=math.inf):
         """
         min_angleからmax_angle度のランダムな方向に一発発射する
-        :param angle: 角度
-        :return:
+        :param min_angle: 発射する角度の範囲の下限
+        :param max_angle: 発射する角度の範囲の上限
+        :param speed: 弾の速さ
         """
         count = 0
         while count < end_count:
@@ -591,8 +640,8 @@ class ShotPosition():
     def pattern18(self, start_angle, speed, interval_count, start_count=0, end_count=math.inf, angle_function=None):
         """
         発射角度をangle_functionによって決める
-        :param angle: 角度
-        :return:
+        :param start_angle: 一発目に発射する角度
+        :param speed: 弾の速さ
         """
         count = 0
         angle = start_angle
@@ -610,10 +659,19 @@ class ShotPosition():
             count += 1
             yield
 
-    def pattern19(self, angle, speed, interval_count, start_count=0, end_count=math.inf, bullet_change_interval=1, bullet_change_start_count=0, bullet_change_end_count=math.inf, angle_function=None, bullet_angle_function=None):
+    def pattern19(self, angle, speed, interval_count, start_count=0, end_count=math.inf, bullet_change_interval=1,
+                  bullet_change_start_count=0, bullet_change_end_count=math.inf, angle_function=None,
+                  bullet_angle_function=None):
         """
         angle度の方向に一発発射する
-        :param angle: 角度
+        発射された弾はbullet_change_start_count後に角度をbullet_angle_function関数に従って変更する
+        :param angle_function: 発射ごとに角度を変更したい場合増加させる角度を返す関数を指定する
+        :param bullet_change_end_count:
+        :param bullet_angle_function: 発射後の弾の角度を決定する関数
+        :param speed: 弾の速さ
+        :param bullet_change_interval: 弾の角度を変える頻度
+        :param bullet_change_start_count: 弾の角度変更を終了するカウント
+        :param angle: 発射時の角度
         :return:
         """
         count = 0
@@ -627,10 +685,13 @@ class ShotPosition():
                                                     math.sin(math.radians(_angle)), speed, 0)
                     if b:
                         self.bullets.append(b)
-                        b.set_move_function(b.pattern4(bullet_angle_function if bullet_angle_function else lambda count: 0, bullet_change_interval, bullet_change_start_count, bullet_change_end_count))
+                        b.set_move_function(
+                            b.pattern4(bullet_angle_function if bullet_angle_function else lambda count: 0,
+                                       bullet_change_interval, bullet_change_start_count, bullet_change_end_count))
 
             count += 1
             yield
+
 
 class Bit(Enemy):
 
@@ -683,7 +744,7 @@ class Bit(Enemy):
     def draw(self):
         if self.is_active:
             pyxel.rect(self.view_start_x, self.view_start_y, self.view_start_x + self.width,
-                   self.view_start_y + self.height, self.color)
+                       self.view_start_y + self.height, self.color)
 
         # self.shot_position.draw()
 
@@ -746,12 +807,16 @@ class Bit(Enemy):
             count += 1
             yield
 
-    def move_pattern3(self, start_position_x, start_position_y, target_position_x, target_position_y, start_count, end_count):
+    def move_pattern3(self, start_position_x, start_position_y, target_position_x, target_position_y, start_count,
+                      end_count):
         """
-
-        :param position_x:
-        :param position_y:
-        :param count:
+        初期位置から終点位置まで直線移動
+        :param start_count: 移動開始カウント
+        :param end_count: 移動終了カウント
+        :param start_position_x: 移動開始地点
+        :param start_position_y: 移動開始地点
+        :param target_position_x: 移動終了地点
+        :param target_position_y: 移動終了地点
         :return:
         """
 

@@ -3,10 +3,11 @@ import player
 from scene import Scene
 import bullet_pool
 
+
 class Mission():
 
     def __init__(self):
-        print("Mission")
+        # print("Mission")
         self.player = player.Player(pyxel.width / 2, 200, 10, 10, 1, 2)
         self.enemy_max_hp = self.enemy.hp
         self.return_value = {"status": Scene.NO_SCENE_CHANGE}

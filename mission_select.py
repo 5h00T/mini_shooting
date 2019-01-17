@@ -2,6 +2,7 @@ import pyxel
 from scene import Scene
 import missions
 
+
 class MissionSelect():
 
     def __init__(self, cursor_position):
