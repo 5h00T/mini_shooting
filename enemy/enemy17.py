@@ -40,10 +40,8 @@ class Enemy17(enemy.Enemy):
                     break
 
         for i in self.bit_formation.keys():
-            print(self.bit_formation[i]["bit_object"])
             if self.bit_formation[i]["bit_object"] is not None:
                 if self.bit_formation[i]["bit_object"].is_active is False:
-                    print("None")
                     self.bit_formation[i]["bit_object"] = None
 
         for bit in self.bits:

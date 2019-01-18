@@ -41,9 +41,7 @@ class Enemy():
 
         """
         for shot_function_name in list(self.shot_functions):
-            # print("O")
             if self.shot_functions[shot_function_name] is not None:
-                # print("A")
                 try:
                     next(self.shot_functions[shot_function_name])
                 except StopIteration:
@@ -707,7 +705,7 @@ class Bit(Enemy):
         self.movement_y = movement_y
         self.move_functions = []
         self.shot_functions = []
-        self.return_shot_functions = []
+        self.return_shot_functions = []  # 撃ち返し弾のパターンを格納
         self.is_shooted_return_shot = False
 
     def update(self):
@@ -745,8 +743,6 @@ class Bit(Enemy):
         if self.is_active:
             pyxel.rect(self.view_start_x, self.view_start_y, self.view_start_x + self.width,
                        self.view_start_y + self.height, self.color)
-
-        # self.shot_position.draw()
 
     def set_move_function(self, move_function):
         self.move_functions.append(move_function)

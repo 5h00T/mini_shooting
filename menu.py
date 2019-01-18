@@ -5,7 +5,6 @@ from scene import Scene
 class Menu():
 
     def __init__(self):
-        print("Menu")
         self.cursor = 0
         self.menu_item = ["MissionSelect", "Quit"]
         self.is_active = True
