@@ -7,11 +7,8 @@ class Mission():
     """
 
     def __init__(self, mission, best_time):
-        print("Mission", mission)
         self.mission = mission()
         self.best_time = best_time
-        # print(self.best_time)
-        # print(self.mission.__class__.__name__[-2:])
         self.mission_number = int(''.join([ch for ch in self.mission.__class__.__name__[-2:] if ch.isdecimal()]))
         # 挑戦回数を追加
         with open("score.txt", "rt") as f:

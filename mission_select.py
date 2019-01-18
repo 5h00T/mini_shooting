@@ -6,7 +6,6 @@ import missions
 class MissionSelect():
 
     def __init__(self, cursor_position):
-        # print("MissionSelect")
         self.cursor = cursor_position
         self.missions = ["mission" + i for i in missions.missions.keys()]
         self.mission_recode = [i for i in open("score.txt").readlines()]

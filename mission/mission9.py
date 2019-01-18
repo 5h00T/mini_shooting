@@ -6,7 +6,6 @@ from . import mission
 class Mission9(mission.Mission):
 
     def __init__(self):
-        print("Mission9")
         self.enemy = enemy9.Enemy9(pyxel.width / 2, 40, 16, 16, 220, 8)
         super().__init__()
 

@@ -7,7 +7,6 @@ import bullet_pool
 class Mission():
 
     def __init__(self):
-        # print("Mission")
         self.player = player.Player(pyxel.width / 2, 200, 10, 10, 1, 2)
         self.enemy_max_hp = self.enemy.hp
         self.return_value = {"status": Scene.NO_SCENE_CHANGE}
@@ -34,7 +33,7 @@ class Mission():
             self.bullet_pool.all_reset_bullet()
             self.return_value["status"] = "exit"
 
-        print(self.bullet_pool.get_active_bullet_num())
+        # print(self.bullet_pool.get_active_bullet_num())
 
     def draw(self):
         self.player.draw()
@@ -104,7 +103,6 @@ class Mission():
         player_x = self.player.x
         player_y = self.player.y
         player_r = self.player.collision_radius
-        # print(player_x, player_y, player_r)
         for shot_position in self.enemy.shot_positions:
             for enemy_bullet in shot_position.bullets:
                 x = enemy_bullet.x
@@ -119,10 +117,8 @@ class Mission():
         player_x = self.player.x
         player_y = self.player.y
         player_r = self.player.collision_radius
-        # print(player_x, player_y, player_r)
         for bit in self.enemy.bits:
             for bit_bullet in bit.shot_position.bullets:
-                print("AD")
                 x = bit_bullet.x
                 y = bit_bullet.y
                 r = bit_bullet.collision_radius
