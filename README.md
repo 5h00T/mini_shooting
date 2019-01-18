@@ -1,8 +1,11 @@
 # mini_shooting
 全20ミッションの弾幕シューティングゲーム
 
-![image_1](https://user-images.githubusercontent.com/25942568/51370330-225bb780-1b3a-11e9-9816-7d5549b024a0.png)
-![image_2](https://user-images.githubusercontent.com/25942568/51370400-4cad7500-1b3a-11e9-99ae-c651ee60f396.png)
+![pyxel-190118-160639](https://user-images.githubusercontent.com/25942568/51371343-394fd900-1b3d-11e9-8bab-612840a8085f.png)
+![pyxel-190118-161851](https://user-images.githubusercontent.com/25942568/51371342-394fd900-1b3d-11e9-9540-3cb512b093a4.png)
+![pyxel-190118-160843](https://user-images.githubusercontent.com/25942568/51371332-381eac00-1b3d-11e9-88da-49d1492f587a.png)
+![pyxel-190118-162505](https://user-images.githubusercontent.com/25942568/51371489-a1062400-1b3d-11e9-855b-fcd577fd1e80.png)
+
 ## 準備
 `pip install pyxel`  
 
@@ -14,3 +17,5 @@
 低速移動:左Shift  
 ショット:Z  
 中断:Q
+Pyxelの特殊操作各種も使えます
+
