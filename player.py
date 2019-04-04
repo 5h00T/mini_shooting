@@ -18,7 +18,7 @@ class Player():
         self.speed = speed
         self.slow_speed = 0.5  # 低速移動したときのスピード
         self.count = 0
-        self.bullet_pool = bullet_pool.PlayerBulletPool(30)
+        self.bullet_pool = bullet_pool.PlayerBulletPool(28)
         self.bullets = []
 
     @classmethod
@@ -27,12 +27,13 @@ class Player():
 
     def update(self):
         self.count += 1
-
-        for b in self.bullets:
+        i = 0
+        for b in self.bullets[:]:
             b.update()
+            i += 1
             if not b.is_active:
                 self.bullets.remove(b)
-
+        print(i)
         self.move()
 
         if pyxel.btnp(pyxel.KEY_Z, 10, 10):

@@ -2,7 +2,7 @@ import pyxel
 import math
 
 
-COLLISION_RADIUS_RATE = 0.3  # 見た目の当たり判定からどのぐらい
+COLLISION_RADIUS_RATE = 0.3  # 見た目から当たり判定がどのぐらい小さいか
 
 class Bullet():
 

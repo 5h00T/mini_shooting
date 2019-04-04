@@ -39,15 +39,6 @@ class Enemy():
                 except StopIteration:
                     self.shot_functions.remove(shot_function)
 
-        """
-        for shot_function_name in list(self.shot_functions):
-            if self.shot_functions[shot_function_name] is not None:
-                try:
-                    next(self.shot_functions[shot_function_name])
-                except StopIteration:
-                    self.shot_functions.pop(shot_function_name)
-        """
-
         for shot_position in self.shot_positions:
             shot_position.update()
 
@@ -174,7 +165,7 @@ class ShotPosition():
         self.bullet_pool = bullet_pool.EnemyBulletPool
 
     def update(self):
-        for b in self.bullets:
+        for b in self.bullets[:]:
             b.update()
             if not b.is_active:
                 self.bullets.remove(b)
