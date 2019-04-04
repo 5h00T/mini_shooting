@@ -27,13 +27,11 @@ class Player():
 
     def update(self):
         self.count += 1
-        i = 0
         for b in self.bullets[:]:
             b.update()
             i += 1
             if not b.is_active:
                 self.bullets.remove(b)
-        print(i)
         self.move()
 
         if pyxel.btnp(pyxel.KEY_Z, 10, 10):
