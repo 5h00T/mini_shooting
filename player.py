@@ -29,7 +29,6 @@ class Player():
         self.count += 1
         for b in self.bullets[:]:
             b.update()
-            i += 1
             if not b.is_active:
                 self.bullets.remove(b)
         self.move()
