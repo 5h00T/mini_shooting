@@ -4,6 +4,7 @@ import menu
 from scene import Scene
 import mission_manager
 import missions
+import sys
 
 
 class SceneManager():
@@ -21,7 +22,8 @@ class SceneManager():
         elif scene_transition[0] == Scene.SETTINGS:
             pass
         elif scene_transition[0] == Scene.QUIT:
-            pyxel.quit()
+            # pyxel.quit()
+            sys.exit()
         elif scene_transition[0] == Scene.MISSION:
             self.scene = mission_manager.Mission(missions.missions[str(scene_transition[1])], scene_transition[2])
 

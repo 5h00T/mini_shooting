@@ -49,8 +49,7 @@ class Enemy():
                     self.bits.remove(bit)
 
     def draw(self):
-        pyxel.rect(self.view_start_x, self.view_start_y, self.view_start_x + self.width,
-                   self.view_start_y + self.height, self.color)
+        pyxel.rect(self.view_start_x, self.view_start_y, self.width, self.height, self.color)
 
         for bit in self.bits:
             bit.draw()
@@ -732,8 +731,7 @@ class Bit(Enemy):
 
     def draw(self):
         if self.is_active:
-            pyxel.rect(self.view_start_x, self.view_start_y, self.view_start_x + self.width,
-                       self.view_start_y + self.height, self.color)
+            pyxel.rect(self.view_start_x, self.view_start_y,  self.width, self.height, self.color)
 
     def set_move_function(self, move_function):
         self.move_functions.append(move_function)

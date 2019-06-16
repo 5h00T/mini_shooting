@@ -37,8 +37,7 @@ class Player():
             self.shot(6, -97.5, 3, 5, 1, 1)
 
     def draw(self):
-        pyxel.rect(self.view_start_x, self.view_start_y, self.view_start_x + self.width,
-                   self.view_start_y + self.height, 9)
+        pyxel.rect(self.view_start_x, self.view_start_y, self.width, self.height, 9)
         pyxel.pix(self.x, self.y, 12)
         for b in self.bullets:
             b.draw()
