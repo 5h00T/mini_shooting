@@ -15,8 +15,7 @@ or
 `pyxel play app/mini_shooting.pyxapp`
 
 ## 操作方法
-移動 move:矢印キー  
-低速移動 slow:左Shift  
-ショット shot:Z  
-中断 quit mission:Q  
-Pyxelの特殊操作各種も使えます
+移動(move):矢印キー(arrow key)  
+低速移動(slow):左Shift(left shift)  
+ショット(shot):Z  
+中断(quit mission):Q  
