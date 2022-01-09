@@ -7,7 +7,7 @@
 ![pyxel-190118-162505](https://user-images.githubusercontent.com/25942568/51371489-a1062400-1b3d-11e9-855b-fcd577fd1e80.png)
 
 ## 準備
-`pip install pyxel==1.5.8`  
+`pip install pyxel==1.5.8 numpy`  
 
 ## 実行
 `python main.py`
