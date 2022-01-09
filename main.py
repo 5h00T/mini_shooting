@@ -6,7 +6,7 @@ import os
 
 class App:
     def __init__(self):
-        pyxel.init(width=189, height=252, caption="shooting", fps=60, border_width=0)
+        pyxel.init(width=189, height=252, title="shooting", fps=60)
         self.one_second_count = 0
         self.fps_base_time = time.time()
         self.fps = 0
