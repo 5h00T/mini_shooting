@@ -7,14 +7,16 @@
 ![pyxel-190118-162505](https://user-images.githubusercontent.com/25942568/51371489-a1062400-1b3d-11e9-855b-fcd577fd1e80.png)
 
 ## 準備
-`pip install pyxel==1.1.1`  
+`pip install pyxel==1.5.8`  
 
 ## 実行
 `python main.py`
+or
+`pyxel play app/mini_shooting.pyxapp`
 
 ## 操作方法
-移動:矢印キー  
-低速移動:左Shift  
-ショット:Z  
-中断:Q  
+移動 move:矢印キー  
+低速移動 slow:左Shift  
+ショット shot:Z  
+中断 quit mission:Q  
 Pyxelの特殊操作各種も使えます
