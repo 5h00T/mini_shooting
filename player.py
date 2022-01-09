@@ -38,7 +38,7 @@ class Player():
 
     def draw(self):
         pyxel.rect(self.view_start_x, self.view_start_y, self.width+1, self.height+1, 9)
-        pyxel.pix(self.x, self.y, 12)
+        pyxel.pset(self.x, self.y, 12)
         for b in self.bullets:
             b.draw()
 
@@ -47,7 +47,7 @@ class Player():
         slanting_speed = 0.71
         is_slow = False
 
-        if pyxel.btn(pyxel.KEY_LEFT_SHIFT):
+        if pyxel.btn(pyxel.KEY_LSHIFT):
             is_slow = True
 
         # 上または下と左または右が押されたとき移動量を0.71倍する
