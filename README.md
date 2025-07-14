@@ -7,7 +7,15 @@
 ![pyxel-190118-162505](https://user-images.githubusercontent.com/25942568/51371489-a1062400-1b3d-11e9-855b-fcd577fd1e80.png)
 
 ## 準備
-`pip install pyxel==1.5.8 numpy`  
+```bash
+pip install -r requirements.txt
+```
+
+※ requirements.txt の内容:
+```text
+numpy==2.3.1
+pyxel==2.4.6
+```
 
 ## 実行
 `python main.py`
@@ -18,4 +26,4 @@ or
 移動(move):矢印キー(arrow key)  
 低速移動(slow):左Shift(left shift)  
 ショット(shot):Z  
-中断(quit mission):Q  
+中断(quit mission):Q
