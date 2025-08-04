@@ -23,6 +23,7 @@ pyxel==2.4.6
 `pyxel play app/mini_shooting.pyxapp`
 
 以下URLによりブラウザ上でプレイできます
+
 `https://kitao.github.io/pyxel/wasm/launcher/?play=5h00t.mini_shooting.app.mini_shooting&packages=numpy`
 
 ## 操作方法
