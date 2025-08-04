@@ -19,8 +19,11 @@ pyxel==2.4.6
 
 ## 実行
 `python main.py`
-or
+
 `pyxel play app/mini_shooting.pyxapp`
+
+以下URLによりブラウザ上でプレイできます
+`https://kitao.github.io/pyxel/wasm/launcher/?play=5h00t.mini_shooting.app.mini_shooting&packages=numpy`
 
 ## 操作方法
 移動(move):矢印キー(arrow key)  
